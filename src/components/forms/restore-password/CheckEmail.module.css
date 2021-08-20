@@ -1,0 +1,8 @@
+.paper {
+    height: 468px;
+    width: 413px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

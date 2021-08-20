@@ -1,0 +1,40 @@
+.paper {
+    background: hsla(240, 71%, 99%, 1);
+    height: 600px;
+    width: 413px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formGroup {
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+    hight: 80%;
+    position: relative;
+}
+
+.formLabel {
+    color: #2D2E46;
+}
+
+.button {
+    margin-top: 30px;
+    background-color: cyan;
+}
+
+.signUpBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon {
+    position: absolute;
+    left: 90%;
+    bottom: 47%;
+}
