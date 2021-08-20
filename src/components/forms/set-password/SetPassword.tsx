@@ -8,22 +8,21 @@ type SetPasswordPropsType = {
 }
 
 type FormikErrorType = {
-    email?: string;
     password?: string;
 }
 
 const SetPasswordForm: React.FC<SetPasswordPropsType> = ({onSubmitHandler}) => {
     const formik = useFormik({
         initialValues: {
-            email: 'panich2303@gmail.com',
+            password: 'panich2303@gmail.com',
         },
         validate: values => {
             const errors: FormikErrorType = {};
 
-            if (!values.email) {
-                errors.email = 'Required';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address';
+            if (!values.password) {
+                errors.password = 'Password is required!';
+            } else if (values.password.length < 8) {
+                errors.password = 'Must be more than 7 characters'
             }
 
             return errors;
@@ -35,18 +34,18 @@ const SetPasswordForm: React.FC<SetPasswordPropsType> = ({onSubmitHandler}) => {
     return (
         <Paper className={s.paper} elevation={3}>
             <FormLabel>
-                <h3>Forgot your password?</h3>
+                <h3 style={{color: '#2D2E46'}}>Create New Password</h3>
             </FormLabel>
             <FormGroup className={s.formGroup}>
                 <TextField
                     variant={'standard'}
-                    label="Email"
-                    margin="normal"
+                    label='New password'
+                    type='password'
                     {...formik.getFieldProps('email')}
                 />
-                {formik.touched.email &&
-                formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                <p className={s.text}>Enter your email address and we will send you further instructions</p>
+                {formik.touched.password &&
+                formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                <p className={s.text}>Create new password and we will send you further instructions to email</p>
                 <Button
                     type={'submit'}
                     variant={'contained'}
