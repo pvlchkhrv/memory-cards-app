@@ -1,25 +1,28 @@
 import {instance} from './instance';
 import {
-    AuthMeResponseType,
+    AuthMeResponseType, LoginPayloadType,
     LoginResponseType,
     PingResponseType,
     RegisterResponseType,
     RestoreResponseType,
     UpdateProfileResponseType
-} from '../types/auth';
+} from '../types/authTypes';
 
 const from = 'pvlchkhrv@gmail.com';
 const message = `<div>password recover link: <a href='https://neko-back.herokuapp.com/2.0/set-new-password/$token$'>Link</a></div>`;
 
 export const authAPI = {
-    ping() {
-        return instance.get<PingResponseType>(`/ping/?frontTime=${Date.now()}`);
+    async ping() {
+        const response = await instance.get<PingResponseType>(`/ping/?frontTime=${Date.now()}`)
+        return response.data
     },
-    authMe() {
-        return instance.post<AuthMeResponseType>('auth/me', {});
+    async authMe() {
+        const response = await instance.post<AuthMeResponseType>('auth/me', {})
+        return response.data
     },
-    login(payload: { email: string, password: string, rememberMe: boolean }) {
-        return instance.post<LoginResponseType>('auth/login', {...payload});
+    async login(payload: LoginPayloadType) {
+        const response = await instance.post<LoginResponseType>('auth/login', {...payload})
+        return response.data
     },
     logout() {
         return instance.delete('auth/me', {});

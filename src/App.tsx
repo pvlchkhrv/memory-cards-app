@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import AppRouter from './components/AppRouter';
-import {Container} from '@material-ui/core';
 import './styles/App.css'
 import {BrowserRouter} from 'react-router-dom';
+import {setAppStatus} from './store/reducers/appReducer';
 
 const App = () => {
 
+    // useEffect(() => {
+    //     if (localStorage.getItem('auth')) {
+    //         setIsAuth({isAuth: true});
+    //     }
+    //     setAppStatus({status: 'succeed'});
+    // }, [])
     return (
         <div className='app'>
                 <BrowserRouter>

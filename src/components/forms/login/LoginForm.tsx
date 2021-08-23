@@ -4,9 +4,10 @@ import {Button, Checkbox, FormControlLabel, FormGroup, FormLabel, Paper, TextFie
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import s from './LoginForm.module.css';
 import {Link} from 'react-router-dom';
+import {LoginPayloadType} from '../../../types/authTypes';
 
 type LoginPropsType = {
-    onSubmitHandler: (values: { email: string, password: string, rememberMe: boolean }) => void
+    onSubmitHandler: (values: LoginPayloadType) => void
 }
 
 type FormikErrorType = {
@@ -44,7 +45,8 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler}) => {
     });
 
     return (
-        <Paper className={s.paper} elevation={3}>
+        <Paper  elevation={3}>
+            <form className={s.form} onSubmit={formik.handleSubmit}>
             <FormLabel>
                 <h3 className={s.formLabel}>Sign In</h3>
             </FormLabel>
@@ -82,12 +84,12 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler}) => {
                     className={s.button}>
                     Log In</Button>
             </FormGroup>
+            </form>
             <div className={s.signUpBlock}>
                 <p>Don't have an account?</p>
                 <Link to='/register'>Sign Up</Link>
                 <Link to='/restore'>Forgot Password</Link>
             </div>
-
         </Paper>
     );
 };

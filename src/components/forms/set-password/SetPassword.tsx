@@ -45,6 +45,14 @@ const SetPasswordForm: React.FC<SetPasswordPropsType> = ({onSubmitHandler}) => {
                 />
                 {formik.touched.password &&
                 formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                <TextField
+                    variant={'standard'}
+                    label='Confirm password'
+                    type='password'
+                    {...formik.getFieldProps('email')}
+                />
+                {formik.touched.password &&
+                formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                 <p className={s.text}>Create new password and we will send you further instructions to email</p>
                 <Button
                     type={'submit'}

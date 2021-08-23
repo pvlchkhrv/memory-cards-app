@@ -1,3 +1,6 @@
+import {setIsAuth, setUserData} from '../store/reducers/authReducer';
+import {setAppIsInitialized} from '../store/reducers/appReducer';
+
 export type UserDataType = {
     avatar?: string
     created: string
@@ -47,3 +50,21 @@ export type UpdateProfileResponseType = {
     token: string;
     tokenDeathTime: number;
 };
+
+export type AuthStateType = {
+    user: UserDataType | null,
+    isAuth: boolean
+}
+
+export enum AuthActions {
+    SET_USER_DATA= 'SET_USER_DATA',
+    SET_IS_AUTH= 'SET_IS_AUTH',
+}
+
+export type LoginPayloadType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+}
+
+export type AuthActionsType = ReturnType<typeof setUserData> | ReturnType<typeof setIsAuth>
