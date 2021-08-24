@@ -1,21 +1,23 @@
 import React, {useState} from 'react'
 import {useFormik} from 'formik'
-import {Button, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core'
+import {Button, FormGroup, FormLabel, LinearProgress, Paper, TextField} from '@material-ui/core'
 import s from './RestorePassword.module.css'
 import CheckEmail from './CheckEmail'
 import {useHistory} from 'react-router'
+import {RequestStatusType} from '../../../types/appTypes';
 
 type RestorePasswordPropsType = {
-    onSubmitHandler: (values: { email: string }) => void
+    onSubmitHandler: (values: { email: string }) => void;
+    info: string | null;
+    status: RequestStatusType;
 }
 
 type FormikErrorType = {
     email?: string;
 }
 
-const RestorePasswordForm: React.FC<RestorePasswordPropsType> = ({onSubmitHandler}) => {
-    const [isSent, setIsSent] = useState<boolean>(false);
-    const history = useHistory();
+const RestorePasswordForm: React.FC<RestorePasswordPropsType> = ({onSubmitHandler, info, status}) => {
+    const history = useHistory()
 
     const formik = useFormik({
         initialValues: {
@@ -32,45 +34,48 @@ const RestorePasswordForm: React.FC<RestorePasswordPropsType> = ({onSubmitHandle
             return errors
         },
         onSubmit: (values) => {
-            onSubmitHandler(values);
+            onSubmitHandler(values)
         },
     });
-    if (isSent) {
-        return <CheckEmail email={formik.values.email}/>
+    if (status === 'succeed') {
+        return <CheckEmail info={info}/>
     }
     return (
-        <Paper className={s.paper} elevation={3}>
-            <form className={s.form}>
-                <FormLabel>
-                    <h2 className={s.formLabel}>Forgot your password?</h2>
-                </FormLabel>
-                <FormGroup className={s.formGroup}>
-                    <TextField
-                        variant={'standard'}
-                        label="Email"
-                        margin="normal"
-                        {...formik.getFieldProps('email')}
-                    />
-                    {formik.touched.email &&
-                    formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                    <p className={s.text}>Enter your email address and we will send you further instructions</p>
-                    <Button
-                        type={'submit'}
-                        variant={'contained'}
-                        color={'primary'}
-                        className={s.button}
-                        onClick={() => setIsSent(true)}>
-                        Send my password</Button>
-                    <Button
-                        onClick={() => history.push('/login')}
-                        type={'submit'}
-                        variant={'contained'}
-                        color={'secondary'}
-                        className={s.button}>
-                        Cancel</Button>
-                </FormGroup>
-            </form>
-        </Paper>
+        <div>
+            <Paper className={s.paper} elevation={3}>
+                <form className={s.form} onSubmit={formik.handleSubmit}>
+                    <FormLabel>
+                        <h2 className={s.formLabel}>Forgot your password?</h2>
+                    </FormLabel>
+                    <FormGroup className={s.formGroup}>
+                        <TextField
+                            variant='standard'
+                            label='Email'
+                            margin='normal'
+                            {...formik.getFieldProps('email')}
+                        />
+                        {formik.touched.email &&
+                        formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                        <p className={s.text}>Enter your email address and we will send you further instructions</p>
+                        <Button
+                            type='submit'
+                            variant='contained'
+                            color='primary'
+                            className={s.button}
+                            disabled={status === 'loading'}
+                        >
+                            Send my password</Button>
+                        <Button
+                            onClick={() => history.push('/login')}
+                            variant='contained'
+                            color='secondary'
+                            className={s.button}>
+                            Cancel</Button>
+                    </FormGroup>
+                </form>
+            </Paper>
+            {status === 'loading' && <LinearProgress/>}
+        </div>
     )
 }
 

@@ -5,20 +5,20 @@ import s from './CheckEmail.module.css';
 import {useHistory} from 'react-router';
 
 type CheckEmailPropsType = {
-    email: string;
+    info: string | null
 }
 
-const CheckEmail: React.FC<CheckEmailPropsType> = ({email}) => {
+const CheckEmail: React.FC<CheckEmailPropsType> = ({ info}) => {
     const history = useHistory();
     useEffect(() => {
-        setTimeout(() => history.push('/login'), 2000)
+        setTimeout(() => history.push('/login'), 3000)
     }, [])
 
     return (
             <Paper elevation={3} className={s.paper}>
                 <DraftsTwoToneIcon fontSize='large'/>
-                <h3>Check Your Email</h3>
-                <p>We’ve sent instructions to {email}</p>
+                <h3>{info}</h3>
+                <p>Check you email</p>
             </Paper>
     );
 };

@@ -10,6 +10,7 @@ import RegisteredSuccess from '../components/forms/register/RegisteredSuccess';
 const Register = () => {
     const dispatch = useDispatch()
     const isRegistered = useAppSelector(state => state.auth.isRegistered)
+    const status = useAppSelector(state => state.app.status)
     const onSubmitHandler = (payload: RegisterPayloadType) => {
         dispatch(register(payload))
     }
@@ -18,8 +19,10 @@ const Register = () => {
         return <RegisteredSuccess/>
     }
     return (
-        <div >
-            <RegisterForm onSubmitHandler={onSubmitHandler}/>
+        <div>
+            <RegisterForm onSubmitHandler={onSubmitHandler}
+                          status={status}
+            />
         </div>
     );
 };

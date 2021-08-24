@@ -9,7 +9,8 @@ import {useDispatch} from 'react-redux';
 
 const Login = () => {
     const dispatch = useDispatch()
-    const {user} = useAppSelector(state => state.auth)
+    const user = useAppSelector(state => state.auth.user)
+    const status = useAppSelector(state => state.app.status)
     const onSubmitHandler = (payload: LoginPayloadType) => {
         dispatch(login(payload))
     }
@@ -19,7 +20,9 @@ const Login = () => {
     }
     return (
         <div>
-            <LoginForm onSubmitHandler={onSubmitHandler}/>
+            <LoginForm onSubmitHandler={onSubmitHandler}
+                       status={status}
+            />
         </div>
     );
 };

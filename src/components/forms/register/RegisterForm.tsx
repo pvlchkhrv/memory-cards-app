@@ -1,12 +1,14 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {Button, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core';
+import {Button, FormGroup, FormLabel, LinearProgress, Paper, TextField} from '@material-ui/core';
 import s from './RegisterForm.module.css'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import {useHistory} from 'react-router';
+import {RequestStatusType} from '../../../types/appTypes';
 
 type RegisterPropsType = {
     onSubmitHandler: (values: { email: string, password: string }) => void
+    status: RequestStatusType
 }
 
 type FormikErrorType = {
@@ -15,7 +17,7 @@ type FormikErrorType = {
     confirmPassword?: string;
 }
 
-const RegisterForm: React.FC<RegisterPropsType> = ({onSubmitHandler}) => {
+const RegisterForm: React.FC<RegisterPropsType> = ({onSubmitHandler, status}) => {
     const formik = useFormik({
         initialValues: {
             email: 'panich2303@gmail.com',
@@ -54,58 +56,64 @@ const RegisterForm: React.FC<RegisterPropsType> = ({onSubmitHandler}) => {
     const history = useHistory()
 
     return (
-        <Paper className={s.paper} elevation={3}>
-            <form className={s.form} onSubmit={formik.handleSubmit}>
-                <FormLabel>
-                    <h1 className={s.formLabel}>Sign Up</h1>
-                </FormLabel>
-                <FormGroup className={s.formGroup}>
-                    <TextField
-                        variant={'standard'}
-                        label='Email'
-                        margin='normal'
-                        {...formik.getFieldProps('email')}
-                    />
-                    {formik.touched.email &&
-                    formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                    <TextField
-                        variant={'standard'}
-                        type="password"
-                        label="Password"
-                        margin="normal"
-                        {...formik.getFieldProps('password')}
-                    />
-                    {formik.touched.password &&
-                    formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
-                    <TextField
-                        variant={'standard'}
-                        type='password'
-                        label='Confirm password'
-                        margin='normal'
-                        {...formik.getFieldProps('confirmPassword')}
-                    />
-                    {formik.touched.confirmPassword &&
-                    formik.errors.confirmPassword ? <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
-                    <VisibilityIcon className={s.icon1}/>
-                    <VisibilityIcon className={s.icon2}/>
-                    <Button
-                        type={'submit'}
-                        variant={'contained'}
-                        color={'primary'}
-                        className={s.button}>
-                        Sign Up</Button>
-                    <Button
-                        onClick={() => history.push('/login')}
-                        type={'submit'}
-                        variant={'contained'}
-                        color={'secondary'}
-                        className={s.button}>
-                        Cancel</Button>
-                </FormGroup>
-            </form>
-        </Paper>
-    );
-};
+        <div>
+            <Paper className={s.paper} elevation={3}>
+                <form className={s.form} onSubmit={formik.handleSubmit}>
+                    <FormLabel>
+                        <h1 className={s.formLabel}>Sign Up</h1>
+                    </FormLabel>
+                    <FormGroup className={s.formGroup}>
+                        <TextField
+                            variant={'standard'}
+                            label='Email'
+                            margin='normal'
+                            {...formik.getFieldProps('email')}
+                        />
+                        {formik.touched.email &&
+                        formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                        <TextField
+                            variant={'standard'}
+                            type="password"
+                            label="Password"
+                            margin="normal"
+                            {...formik.getFieldProps('password')}
+                        />
+                        {formik.touched.password &&
+                        formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                        <TextField
+                            variant={'standard'}
+                            type='password'
+                            label='Confirm password'
+                            margin='normal'
+                            {...formik.getFieldProps('confirmPassword')}
+                        />
+                        {formik.touched.confirmPassword &&
+                        formik.errors.confirmPassword ?
+                            <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
+                        <VisibilityIcon className={s.icon1}/>
+                        <VisibilityIcon className={s.icon2}/>
+                        <Button
+                            type={'submit'}
+                            variant={'contained'}
+                            color={'primary'}
+                            className={s.button}
+                            disabled={status === 'loading'}
+                        >
+                            Sign Up</Button>
+                        <Button
+                            onClick={() => history.push('/login')}
+                            type={'submit'}
+                            variant={'contained'}
+                            color={'secondary'}
+                            className={s.button}>
+                            Cancel</Button>
+                    </FormGroup>
+                </form>
+            </Paper>
+            {status === 'loading' && <LinearProgress/>}
+        </div>
+    )
+}
 
 export {
     RegisterForm

@@ -1,13 +1,24 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {Button, Checkbox, FormControlLabel, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core';
+import {
+    Button,
+    Checkbox,
+    FormControlLabel,
+    FormGroup,
+    FormLabel,
+    LinearProgress,
+    Paper,
+    TextField
+} from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import s from './LoginForm.module.css';
 import {Link} from 'react-router-dom';
 import {LoginPayloadType} from '../../../types/authTypes';
+import {RequestStatusType} from '../../../types/appTypes';
 
 type LoginPropsType = {
     onSubmitHandler: (values: LoginPayloadType) => void
+    status: RequestStatusType
 }
 
 type FormikErrorType = {
@@ -15,7 +26,7 @@ type FormikErrorType = {
     password?: string;
 }
 
-const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler}) => {
+const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
     const formik = useFormik({
         initialValues: {
             email: 'panich2303@gmail.com',
@@ -45,52 +56,57 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler}) => {
     })
 
     return (
-        <Paper  elevation={3} className={s.paper}>
-            <form className={s.form} onSubmit={formik.handleSubmit}>
-            <FormLabel>
-                <h1 className={s.formLabel}>Log In</h1>
-            </FormLabel>
-            <FormGroup className={s.formGroup}>
-                <TextField
-                    variant={'standard'}
-                    label="Email"
-                    margin="normal"
-                    {...formik.getFieldProps('email')}
-                />
-                {formik.touched.email &&
-                formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                <TextField
-                    variant={'standard'}
-                    type="password"
-                    label="Password"
-                    margin="normal"
-                    {...formik.getFieldProps('password')}
-                />
-                {formik.touched.password &&
-                formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
-                <VisibilityIcon className={s.icon}/>
-                <FormControlLabel
-                    label={'Remember me'}
-                    control={
-                        <Checkbox
-                            {...formik.getFieldProps('rememberMe')}
-                            color='primary'/>
-                    }
-                />
-                <Button
-                    type={'submit'}
-                    variant={'contained'}
-                    color={'primary'}
-                    className={s.button}>
-                    Sign In</Button>
-            </FormGroup>
-            </form>
-            <div className={s.signUpBlock}>
-                <span>Don't have an account?</span>
-                <Link to='/register'>Sign Up</Link>
-                <Link to='/restore'>Forgot Password?</Link>
-            </div>
-        </Paper>
+        <div>
+            <Paper elevation={3} className={s.paper}>
+                <form className={s.form} onSubmit={formik.handleSubmit}>
+                    <FormLabel>
+                        <h1 className={s.formLabel}>Log In</h1>
+                    </FormLabel>
+                    <FormGroup className={s.formGroup}>
+                        <TextField
+                            variant={'standard'}
+                            label='Email'
+                            margin="normal"
+                            {...formik.getFieldProps('email')}
+                        />
+                        {formik.touched.email &&
+                        formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                        <TextField
+                            variant={'standard'}
+                            type="password"
+                            label="Password"
+                            margin="normal"
+                            {...formik.getFieldProps('password')}
+                        />
+                        {formik.touched.password &&
+                        formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                        <VisibilityIcon className={s.icon}/>
+                        <FormControlLabel
+                            label={'Remember me'}
+                            control={
+                                <Checkbox
+                                    {...formik.getFieldProps('rememberMe')}
+                                    color='primary'/>
+                            }
+                        />
+                        <Button
+                            type={'submit'}
+                            variant={'contained'}
+                            color={'primary'}
+                            className={s.button}
+                            disabled={status === 'loading'}
+                        >
+                            Sign In</Button>
+                    </FormGroup>
+                </form>
+                <div className={s.signUpBlock}>
+                    <span>Don't have an account?</span>
+                    <Link to='/register'>Sign Up</Link>
+                    <Link to='/restore'>Forgot Password?</Link>
+                </div>
+            </Paper>
+            {status === 'loading' && <LinearProgress/>}
+        </div>
     );
 };
 

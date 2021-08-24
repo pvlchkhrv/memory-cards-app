@@ -15,6 +15,7 @@ const initState: AuthStateType = {
     isAuth: false,
     isRegistered: false,
     info: null,
+    email: null,
 }
 
 const authReducer = (state = initState, action: AuthActionsType): AuthStateType => {
@@ -27,6 +28,8 @@ const authReducer = (state = initState, action: AuthActionsType): AuthStateType 
             return {...state, isRegistered: action.isRegistered}
         case AuthActions.SET_INFO:
             return {...state, info: action.info}
+        case AuthActions.SET_EMAIL:
+            return {...state, email: action.email}
         default:
             return state
     }
@@ -35,7 +38,8 @@ const authReducer = (state = initState, action: AuthActionsType): AuthStateType 
 const setUserData = (payload: UserDataType) => ({type: AuthActions.SET_USER_DATA, payload}) as const
 const setIsAuth = (isAuth: boolean) => ({type: AuthActions.SET_IS_AUTH, isAuth}) as const
 const setIsRegistered = (isRegistered: boolean) => ({type: AuthActions.SET_IS_REGISTERED, isRegistered}) as const
-const setAuthInfo = (info: string) => ({type: AuthActions.SET_INFO, info}) as const
+const setAuthInfo = (info: string | null) => ({type: AuthActions.SET_INFO, info}) as const
+const setAuthEmail = (email: string | null) => ({type: AuthActions.SET_EMAIL, email}) as const
 
 const authMe = (): AppThunkType => async (dispatch) => {
     dispatch(setAppStatus('loading'))
@@ -76,6 +80,7 @@ const restorePassword = (payload: { email: string }): AppThunkType => async (dis
     dispatch(setAppStatus('loading'))
     try {
         const data = await authAPI.restorePassword(payload)
+        dispatch(setAuthInfo(data.info))
         dispatch(setAppStatus('succeed'))
     } catch (e) {
         dispatch(setAppError(e.response.data.error))
@@ -89,7 +94,9 @@ export {
     setIsAuth,
     setIsRegistered,
     setAuthInfo,
+    setAuthEmail,
     authMe,
     login,
-    register
+    register,
+    restorePassword
 }
