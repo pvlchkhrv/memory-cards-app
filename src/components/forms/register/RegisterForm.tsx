@@ -57,7 +57,7 @@ const RegisterForm: React.FC<RegisterPropsType> = ({onSubmitHandler}) => {
         <Paper className={s.paper} elevation={3}>
             <form className={s.form} onSubmit={formik.handleSubmit}>
                 <FormLabel>
-                    <h3 className={s.formLabel}>Sign Up</h3>
+                    <h1 className={s.formLabel}>Sign Up</h1>
                 </FormLabel>
                 <FormGroup className={s.formGroup}>
                     <TextField

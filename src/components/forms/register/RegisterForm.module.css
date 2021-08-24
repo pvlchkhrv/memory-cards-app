@@ -9,18 +9,19 @@
 }
 
 .form {
-    height: 80%;
+    height: 70%;
     width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .formGroup {
     display: flex;
-    justify-content: center;
-    width: 90%;
+    justify-content: space-around;
+    width: 80%;
+    height: 80%;
     position: relative;
 }
 
@@ -35,11 +36,11 @@
 .icon1 {
     position: absolute;
     left: 90%;
-    bottom: 43%;
+    bottom: 33%;
 }
 
 .icon2 {
     position: absolute;
     left: 90%;
-    bottom: 67%;
+    bottom: 57%;
 }

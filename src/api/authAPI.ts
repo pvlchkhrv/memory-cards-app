@@ -6,10 +6,10 @@ import {
     RegisterResponseType,
     RestoreResponseType,
     UpdateProfileResponseType
-} from '../types/authTypes';
+} from '../types/authTypes'
 
-const from = 'pvlchkhrv@gmail.com';
-const message = `<div>password recover link: <a href='https://neko-back.herokuapp.com/2.0/set-new-password/$token$'>Link</a></div>`;
+const from = 'pvlchkhrv@gmail.com'
+const message = `<div>password recover link: <a href='https://neko-back.herokuapp.com/2.0/set-new-password/$token$'>Link</a></div>`
 
 export const authAPI = {
     async ping() {
@@ -36,9 +36,9 @@ export const authAPI = {
         return response.data
     },
     setNewPassword(payload: { password: string, resetPasswordToken: string }) {
-        return instance.post<ResponseType>('auth/new-password', {...payload});
+        return instance.post<ResponseType>('auth/new-password', {...payload})
     },
     updateProfile(payload: { name?: string, avatar?: string }) {
-        return instance.put<UpdateProfileResponseType>('auth/me', {...payload});
+        return instance.put<UpdateProfileResponseType>('auth/me', {...payload})
     }
 };
