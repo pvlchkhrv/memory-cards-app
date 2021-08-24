@@ -31,8 +31,9 @@ export const authAPI = {
         const response = await instance.post<RegisterResponseType>(`auth/register`, {...payload})
         return response.data
     },
-    restorePassword(payload: { email: string }) {
-        return instance.post<RestoreResponseType>('/auth/forgot', {...payload, from, message});
+    async restorePassword(payload: { email: string }) {
+        const response = await instance.post<RestoreResponseType>('/auth/forgot', {...payload, from, message})
+        return response.data
     },
     setNewPassword(payload: { password: string, resetPasswordToken: string }) {
         return instance.post<ResponseType>('auth/new-password', {...payload});
