@@ -28,8 +28,6 @@ const authReducer = (state = initState, action: AuthActionsType): AuthStateType 
             return {...state, isRegistered: action.isRegistered}
         case AuthActions.SET_INFO:
             return {...state, info: action.info}
-        case AuthActions.SET_EMAIL:
-            return {...state, email: action.email}
         default:
             return state
     }
@@ -39,7 +37,6 @@ const setUserData = (payload: UserDataType) => ({type: AuthActions.SET_USER_DATA
 const setIsAuth = (isAuth: boolean) => ({type: AuthActions.SET_IS_AUTH, isAuth}) as const
 const setIsRegistered = (isRegistered: boolean) => ({type: AuthActions.SET_IS_REGISTERED, isRegistered}) as const
 const setAuthInfo = (info: string | null) => ({type: AuthActions.SET_INFO, info}) as const
-const setAuthEmail = (email: string | null) => ({type: AuthActions.SET_EMAIL, email}) as const
 
 const authMe = (): AppThunkType => async (dispatch) => {
     dispatch(setAppStatus('loading'))
@@ -94,7 +91,6 @@ export {
     setIsAuth,
     setIsRegistered,
     setAuthInfo,
-    setAuthEmail,
     authMe,
     login,
     register,
