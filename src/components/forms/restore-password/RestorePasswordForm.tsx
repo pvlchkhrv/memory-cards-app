@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useFormik} from 'formik';
-import {Button, FormControl, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core';
+import {Button, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core';
 import s from './RestorePassword.module.css'
 import CheckEmail from './CheckEmail';
 import {useHistory} from 'react-router';

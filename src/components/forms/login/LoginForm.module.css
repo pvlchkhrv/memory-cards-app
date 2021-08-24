@@ -1,4 +1,4 @@
-.form {
+.paper {
     background: hsla(240, 71%, 99%, 1);
     height: 600px;
     width: 413px;
@@ -9,12 +9,20 @@
     justify-content: center;
 }
 
+.form {
+    height: 70%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .formGroup {
     display: flex;
     justify-content: space-around;
-    width: 70%;
-    hight: 80%;
     position: relative;
+    width: 80%
 }
 
 .formLabel {
@@ -23,14 +31,14 @@
 
 .button {
     margin-top: 30px;
-    background-color: cyan;
 }
 
 .signUpBlock {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    height: 20%;
 }
 
 .icon {

@@ -2,7 +2,7 @@ import {instance} from './instance';
 import {
     AuthMeResponseType, LoginPayloadType,
     LoginResponseType,
-    PingResponseType,
+    PingResponseType, RegisterPayloadType,
     RegisterResponseType,
     RestoreResponseType,
     UpdateProfileResponseType
@@ -27,8 +27,9 @@ export const authAPI = {
     logout() {
         return instance.delete('auth/me', {});
     },
-    register(payload: { email: string, password: string }) {
-        return instance.post<RegisterResponseType>(`auth/register`, {...payload});
+    async register(payload: RegisterPayloadType) {
+        const response = await instance.post<RegisterResponseType>(`auth/register`, {...payload})
+        return response.data
     },
     restorePassword(payload: { email: string }) {
         return instance.post<RestoreResponseType>('/auth/forgot', {...payload, from, message});

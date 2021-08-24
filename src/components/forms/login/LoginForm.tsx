@@ -42,13 +42,13 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler}) => {
         onSubmit: (values) => {
             onSubmitHandler(values);
         },
-    });
+    })
 
     return (
-        <Paper  elevation={3}>
+        <Paper  elevation={3} className={s.paper}>
             <form className={s.form} onSubmit={formik.handleSubmit}>
             <FormLabel>
-                <h3 className={s.formLabel}>Sign In</h3>
+                <h1 className={s.formLabel}>Log In</h1>
             </FormLabel>
             <FormGroup className={s.formGroup}>
                 <TextField
@@ -82,13 +82,13 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler}) => {
                     variant={'contained'}
                     color={'primary'}
                     className={s.button}>
-                    Log In</Button>
+                    Sign In</Button>
             </FormGroup>
             </form>
             <div className={s.signUpBlock}>
-                <p>Don't have an account?</p>
+                <span>Don't have an account?</span>
                 <Link to='/register'>Sign Up</Link>
-                <Link to='/restore'>Forgot Password</Link>
+                <Link to='/restore'>Forgot Password?</Link>
             </div>
         </Paper>
     );

@@ -1,4 +1,4 @@
-import {setIsAuth, setUserData} from '../store/reducers/authReducer';
+import {setIsAuth, setIsRegistered, setUserData} from '../store/reducers/authReducer';
 import {setAppIsInitialized} from '../store/reducers/appReducer';
 
 export type UserDataType = {
@@ -53,12 +53,15 @@ export type UpdateProfileResponseType = {
 
 export type AuthStateType = {
     user: UserDataType | null,
-    isAuth: boolean
+    isAuth: boolean,
+    isRegistered: boolean,
+
 }
 
 export enum AuthActions {
-    SET_USER_DATA= 'SET_USER_DATA',
-    SET_IS_AUTH= 'SET_IS_AUTH',
+    SET_USER_DATA = 'SET_USER_DATA',
+    SET_IS_AUTH = 'SET_IS_AUTH',
+    SET_IS_REGISTERED = 'SET_IS_REGISTERED',
 }
 
 export type LoginPayloadType = {
@@ -67,4 +70,12 @@ export type LoginPayloadType = {
     rememberMe: boolean,
 }
 
-export type AuthActionsType = ReturnType<typeof setUserData> | ReturnType<typeof setIsAuth>
+export type RegisterPayloadType = {
+    email: string,
+    password: string,
+}
+
+export type AuthActionsType =
+    | ReturnType<typeof setUserData>
+    | ReturnType<typeof setIsAuth>
+    | ReturnType<typeof setIsRegistered>

@@ -9,10 +9,10 @@ import {useDispatch} from 'react-redux';
 
 const Login = () => {
     const dispatch = useDispatch()
-    const {user} = useAppSelector(state => state.auth);
+    const {user} = useAppSelector(state => state.auth)
     const onSubmitHandler = (payload: LoginPayloadType) => {
-        dispatch(login(payload));
-    };
+        dispatch(login(payload))
+    }
 
     if (user) {
         return <Redirect to={'/profile'}/>
