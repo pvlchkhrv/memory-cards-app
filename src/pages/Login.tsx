@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {LoginForm} from '../components/forms/login/LoginForm';
 import {useAppSelector} from '../store';
 import {Redirect} from 'react-router';
 import {LoginPayloadType} from '../types/authTypes';
-import {login} from '../store/reducers/authReducer';
+import {authMe, login} from '../store/reducers/authReducer';
 import {useDispatch} from 'react-redux';
 
 
@@ -15,9 +15,14 @@ const Login = () => {
         dispatch(login(payload))
     }
 
+    useEffect(() => {
+        dispatch(authMe())
+    }, [])
+
     if (user) {
         return <Redirect to={'/packs'}/>
     }
+
     return (
         <div>
             <LoginForm onSubmitHandler={onSubmitHandler}

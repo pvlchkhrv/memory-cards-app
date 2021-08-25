@@ -32,7 +32,7 @@ const authReducer = (state = initState, action: AuthActionsType): AuthStateType 
     }
 }
 
-const setUserData = (payload: UserDataType) => ({type: AuthActions.SET_USER_DATA, payload}) as const
+const setUserData = (payload: UserDataType | null) => ({type: AuthActions.SET_USER_DATA, payload}) as const
 const setIsAuth = (isAuth: boolean) => ({type: AuthActions.SET_IS_AUTH, isAuth}) as const
 const setIsRegistered = (isRegistered: boolean) => ({type: AuthActions.SET_IS_REGISTERED, isRegistered}) as const
 const setAuthInfo = (info: string | null) => ({type: AuthActions.SET_INFO, info}) as const
@@ -57,7 +57,18 @@ const login = (payload: LoginPayloadType): AppThunkType => async (dispatch) => {
         dispatch(setUserData(data))
         dispatch(setIsAuth(true))
         dispatch(setAppStatus('succeed'))
-        localStorage.setItem('auth', 'true')
+    } catch (e) {
+        dispatch(setAppError(e.response.data.error))
+        dispatch(setAppStatus('failed'))
+    }
+}
+const logout = (): AppThunkType => async (dispatch) => {
+    dispatch(setAppStatus('loading'))
+    try {
+        await authAPI.logout()
+        dispatch(setUserData(null))
+        dispatch(setIsAuth(false))
+        dispatch(setAppStatus('succeed'))
     } catch (e) {
         dispatch(setAppError(e.response.data.error))
         dispatch(setAppStatus('failed'))
@@ -94,6 +105,7 @@ export {
     setAuthInfo,
     authMe,
     login,
+    logout,
     register,
     restorePassword
 }

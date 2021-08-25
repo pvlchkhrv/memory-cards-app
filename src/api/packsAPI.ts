@@ -1,5 +1,6 @@
 import {GetPacksQueryParamsType, GetPacksResponseType, PackPayloadType} from '../types/packsTypes'
 import {instance} from './instance'
+
 const PACKS_URL = 'cards/pack'
 
 const packsAPI = {

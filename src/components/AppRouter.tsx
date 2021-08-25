@@ -1,9 +1,12 @@
-import React from 'react';
-import {Route, Switch} from 'react-router';
+import React, {useEffect} from 'react';
+import {Redirect, Route, Switch} from 'react-router';
 import {privateRoutes, publicRoutes} from '../router';
 import {useAppSelector} from '../store';
+import {useDispatch} from 'react-redux';
+import {authMe} from '../store/reducers/authReducer';
 
 const AppRouter = () => {
+
     const isAuth = useAppSelector(state => state.auth.isAuth)
     return (
         !isAuth ?

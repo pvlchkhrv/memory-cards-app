@@ -1,8 +1,16 @@
 import React, {useState} from 'react'
 import {Button, Container, Grid, TextField} from '@material-ui/core'
 import s from './CardPacks.module.css'
+import {PacksStateType} from '../types/packsTypes';
+import {UserDataType} from '../types/authTypes';
+import {DataTable} from './DataTable';
 
-const CardPacks = () => {
+type CardsPacksPropsType = {
+    packsData: PacksStateType
+    user: UserDataType | null
+}
+
+const CardPacks: React.FC<CardsPacksPropsType> = ({packsData, user}) => {
     const [isMine, setIsMine] = useState(false)
     return (
         <Container fixed className={s.container}>
@@ -36,9 +44,9 @@ const CardPacks = () => {
                                 size={'large'}
                         >Add New Pack</Button>
                     </div>
-                    {/*<DataTable packs={packs}*/}
-                    {/*           userId={'userId'}*/}
-                    {/*/>*/}
+                    <DataTable packs={packsData.packs}
+                               userId={user?._id}
+                    />
                     {/*<PaginationBar pages={pages}*/}
                     {/*               page={page}*/}
                     {/*               pageCount={pageCount}*/}
