@@ -2,21 +2,21 @@ import React, {useEffect} from 'react';
 import AppRouter from './components/AppRouter';
 import './styles/App.css'
 import {BrowserRouter} from 'react-router-dom';
-import {setAppStatus} from './store/reducers/appReducer';
+import {useDispatch} from 'react-redux';
+import {setIsAuth} from './store/reducers/authReducer';
 
 const App = () => {
-
-    // useEffect(() => {
-    //     if (localStorage.getItem('auth')) {
-    //         setIsAuth({isAuth: true});
-    //     }
-    //     setAppStatus({status: 'succeed'});
-    // }, [])
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (localStorage.getItem('auth') === 'true') {
+            dispatch(setIsAuth(true))
+        }
+    }, [])
     return (
         <div className='app'>
-                <BrowserRouter>
-                        <AppRouter/>
-                </BrowserRouter>
+            <BrowserRouter>
+                <AppRouter/>
+            </BrowserRouter>
         </div>
     );
 };

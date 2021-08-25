@@ -3,11 +3,13 @@ import Register from '../pages/Register';
 import RestorePassword from '../pages/RestorePassword';
 import Error404 from '../pages/Error404';
 import SetPassword from '../pages/SetPassword';
+import Profile from '../components/Profile';
+import Packs from '../pages/Packs';
 
-// const privateRoutes = [
-//     // {path: '/profile', component: {}, exact: true},
-
-// ];
+const privateRoutes = [
+    {path: '/profile', component: Profile, exact: true},
+    {path: '/packs', component: Packs, exact: true},
+];
 
 const publicRoutes = [
     {path: '/login', component: Login, exact: false},
@@ -19,5 +21,6 @@ const publicRoutes = [
 ];
 
 export {
-    publicRoutes
+    publicRoutes,
+    privateRoutes
 }

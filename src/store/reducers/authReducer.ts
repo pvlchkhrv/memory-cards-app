@@ -15,7 +15,6 @@ const initState: AuthStateType = {
     isAuth: false,
     isRegistered: false,
     info: null,
-    email: null,
 }
 
 const authReducer = (state = initState, action: AuthActionsType): AuthStateType => {
@@ -45,6 +44,7 @@ const authMe = (): AppThunkType => async (dispatch) => {
         dispatch(setUserData(data))
         dispatch(setIsAuth(true))
         dispatch(setAppStatus('succeed'))
+        localStorage.setItem('auth', 'true')
     } catch (e) {
         dispatch(setAppError(e.response.data.error))
         dispatch(setAppStatus('failed'))
@@ -57,6 +57,7 @@ const login = (payload: LoginPayloadType): AppThunkType => async (dispatch) => {
         dispatch(setUserData(data))
         dispatch(setIsAuth(true))
         dispatch(setAppStatus('succeed'))
+        localStorage.setItem('auth', 'true')
     } catch (e) {
         dispatch(setAppError(e.response.data.error))
         dispatch(setAppStatus('failed'))

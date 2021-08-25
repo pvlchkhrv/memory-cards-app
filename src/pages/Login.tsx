@@ -16,7 +16,7 @@ const Login = () => {
     }
 
     if (user) {
-        return <Redirect to={'/profile'}/>
+        return <Redirect to={'/packs'}/>
     }
     return (
         <div>
