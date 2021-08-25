@@ -1,5 +1,6 @@
 import {setAppError, setAppIsInitialized, setAppStatus} from '../store/reducers/appReducer';
 import {AuthActionsType} from './authTypes';
+import {PacksActionsType} from './packsTypes';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeed' | 'failed'
 export type AppStateType = {
@@ -22,3 +23,4 @@ export type AppActionsType =
 export type AppRootActionsType =
     | AppActionsType
     | AuthActionsType
+    | PacksActionsType

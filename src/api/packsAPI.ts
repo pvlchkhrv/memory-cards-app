@@ -3,8 +3,9 @@ import {instance} from './instance'
 const PACKS_URL = 'cards/pack'
 
 const packsAPI = {
-    getPacks(queryParams: GetPacksQueryParamsType) {
-        return instance.get<GetPacksResponseType>(PACKS_URL, {params: queryParams})
+    async getPacks(queryParams: GetPacksQueryParamsType) {
+        const response = await instance.get<GetPacksResponseType>(PACKS_URL, {params: queryParams})
+        return response.data
     },
     addPack(payload: PackPayloadType) {
         return instance.post(PACKS_URL, {cardsPacks: payload})
@@ -15,4 +16,9 @@ const packsAPI = {
     updatePack(payload: PackPayloadType) {
         return instance.put(PACKS_URL, {cardsPack: payload})
     },
-};
+}
+
+export {
+    packsAPI,
+    PACKS_URL
+}

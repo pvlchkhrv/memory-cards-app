@@ -46,6 +46,7 @@ export enum PacksActions {
 }
 
 export type PackPayloadType = {
+    _id?: string
     name?: string
     path?: string
     private?: boolean
