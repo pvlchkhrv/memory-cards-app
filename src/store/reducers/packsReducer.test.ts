@@ -1,5 +1,5 @@
 import {PacksStateType, PackType} from '../../types/packsTypes';
-import {packsReducer, setPacks} from './packsReducer';
+import {packsReducer, setCardPacksTotalCount, setPacks, setPage, setPageCount} from './packsReducer';
 
 let startState: PacksStateType
 
@@ -43,4 +43,16 @@ describe('check if packsReducer implements correctly', () => {
         expect(output.packs[1].name).toBe('Pack 1')
         expect(output.packs[1]).toHaveProperty('user_id')
     })
+    it('page should be changed'), () => {
+        const output = packsReducer(startState, setPage(5))
+        expect(output.page).toBe(5)
+    }
+    it('pageCount should be changed'), () => {
+        const output = packsReducer(startState, setPageCount(10))
+        expect(output.pageCount).toBe(10)
+    }
+    it('total packs count should be changed'), () => {
+        const output = packsReducer(startState, setCardPacksTotalCount(100))
+        expect(output.cardPacksTotalCount).toBe(100)
+    }
 })
