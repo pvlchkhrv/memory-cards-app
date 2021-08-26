@@ -1,4 +1,4 @@
-import {setPacks} from '../store/reducers/packsReducer';
+import {setCardPacksTotalCount, setPacks, setPage, setPageCount} from '../store/reducers/packsReducer';
 
 export type PackType = {
     _id: string
@@ -42,7 +42,10 @@ export type PacksStateType = {
 }
 
 export enum PacksActions {
-    SET_PACKS = 'SET_PACKS'
+    SET_PACKS = 'SET_PACKS',
+    SET_PAGE_COUNT = 'SET_PAGE_COUNT',
+    SET_PAGE = 'SET_PAGE',
+    SET_PACKS_TOTAL_COUNT = 'SET_PACKS_TOTAL_COUNT',
 }
 
 export type PackPayloadType = {
@@ -59,3 +62,6 @@ export type PackPayloadType = {
 
 export type PacksActionsType =
     | ReturnType<typeof setPacks>
+    | ReturnType<typeof setPageCount>
+    | ReturnType<typeof setPage>
+    | ReturnType<typeof setCardPacksTotalCount>

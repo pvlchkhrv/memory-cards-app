@@ -1,0 +1,9 @@
+.paginationBar {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.paginationBar select {
+    margin-left: 20px;
+}

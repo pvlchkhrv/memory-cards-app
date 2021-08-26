@@ -5,6 +5,7 @@ import {PacksStateType} from '../types/packsTypes';
 import {UserDataType} from '../types/authTypes';
 import {DataTable} from './DataTable';
 import {RequestStatusType} from '../types/appTypes';
+import PaginationBar from './PaginationBar';
 
 type CardsPacksPropsType = {
     packsData: PacksStateType
@@ -65,6 +66,7 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({packsData, user, status, getP
                         {/*               onChangePage={onChangePage}*/}
                         {/*               onChangeItemsQuantity={onChangeItemsQuantity}*/}
                         {/*/>*/}
+                        <PaginationBar/>
                     </Grid>
                 </Grid>
             </Paper>

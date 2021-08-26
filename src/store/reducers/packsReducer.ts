@@ -11,7 +11,7 @@ import {setAppError, setAppStatus} from './appReducer';
 import {packsAPI} from '../../api/packsAPI';
 
 
-const initState: PacksStateType  = {
+const initState: PacksStateType = {
     packs: [],
     cardPacksTotalCount: 0,
     maxCardsCount: 0,
@@ -24,12 +24,21 @@ const packsReducer = (state = initState, action: PacksActionsType): PacksStateTy
     switch (action.type) {
         case PacksActions.SET_PACKS:
             return {...state, packs: action.payload}
+        case PacksActions.SET_PAGE_COUNT:
+            return {...state, pageCount: action.pageCount}
+        case PacksActions.SET_PAGE:
+            return {...state, pageCount: action.page}
+        case PacksActions.SET_PACKS_TOTAL_COUNT:
+            return {...state, cardPacksTotalCount: action.value}
         default:
             return state
     }
 }
 
 const setPacks = (payload: PackType []) => ({type: PacksActions.SET_PACKS, payload}) as const
+const setPageCount = (pageCount: number) => ({type: PacksActions.SET_PAGE_COUNT, pageCount}) as const
+const setPage = (page: number) => ({type: PacksActions.SET_PAGE, page}) as const
+const setCardPacksTotalCount = (value: number) => ({type: PacksActions.SET_PACKS_TOTAL_COUNT, value}) as const
 
 const fetchPacks = (payload: GetPacksQueryParamsType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatus('loading'))
@@ -72,9 +81,13 @@ const removePack = (id: string): AppThunkType => async (dispatch) => {
         dispatch(setAppStatus('failed'))
     }
 }
+
 export {
     packsReducer,
     setPacks,
+    setPageCount,
+    setPage,
+    setCardPacksTotalCount,
     fetchPacks,
     updatePack,
     removePack

@@ -10,6 +10,7 @@ const CardPacksContainer = () => {
     const status = useAppSelector(state => state.app.status)
     const {user} = useAppSelector(state => state.auth)
     const packsData = useAppSelector(state => state.packs)
+
     const getPacks = (id?: string) => {
         if (id) {
             dispatch(fetchPacks({user_id: id}))
