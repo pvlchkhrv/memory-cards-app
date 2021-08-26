@@ -14,7 +14,7 @@ const privateRoutes = [
 
 const publicRoutes = [
     {path: '/login', component: Login, exact: false},
-    {path: '/', component: App, exact: true},
+    {path: '/', component: Login, exact: true},
     {path: '/register', component: Register, exact: true},
     {path: '/restore', component: RestorePassword, exact: true},
     {path: '/set-password', component: SetPassword, exact: true},

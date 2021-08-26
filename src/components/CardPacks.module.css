@@ -1,11 +1,37 @@
 .container {
-    background: burlywood;
+    height: 100vh;
+    margin-top: 30px;
+}
+
+.content {
+
 }
 
 .settings {
-    background: chocolate;
+    padding: 20px;
+    background: #ECECF9;
 }
 
 .packList {
-    background: cornflowerblue;
+    padding: 20px;
+    background-color: #FEFEFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.searchBar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+}
+
+.searchBar input {
+    width: 480px;
+}
+
+.searchBar button {
+    width: 318px;
 }
