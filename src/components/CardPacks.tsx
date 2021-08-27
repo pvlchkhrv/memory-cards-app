@@ -1,21 +1,35 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Button, Container, Grid, LinearProgress, Paper, TextField} from '@material-ui/core'
 import s from './CardPacks.module.css'
-import {PacksStateType} from '../types/packsTypes';
-import {UserDataType} from '../types/authTypes';
-import {DataTable} from './DataTable';
-import {RequestStatusType} from '../types/appTypes';
-import PaginationBar from './PaginationBar';
+import {GetPacksQueryParamsType, PackType} from '../types/packsTypes'
+import {UserDataType} from '../types/authTypes'
+import {DataTable} from './DataTable'
+import {RequestStatusType} from '../types/appTypes'
+import PaginationBar from './PaginationBar'
 
 type CardsPacksPropsType = {
-    packsData: PacksStateType
+    packs: PackType []
+    packsTotal: number
+    queryParams: GetPacksQueryParamsType
     user: UserDataType | null
     getPacks: (id?: string) => void
     status: RequestStatusType
     isMine: boolean
+    handlePageChange: (e: React.ChangeEvent<unknown>, value: number) => void
+    handlePageCountChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
-const CardPacks: React.FC<CardsPacksPropsType> = ({packsData, user, status, getPacks, isMine}) => {
+const CardPacks: React.FC<CardsPacksPropsType> = ({
+                                                      queryParams,
+                                                      user,
+                                                      status,
+                                                      getPacks,
+                                                      isMine,
+                                                      handlePageChange,
+                                                      handlePageCountChange,
+                                                      packs,
+                                                      packsTotal
+                                                  }) => {
     return (
         <Container fixed className={s.container}>
             <Paper>
@@ -55,18 +69,19 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({packsData, user, status, getP
                             <Button variant={'contained'}
                                     color={'primary'}
                                     size={'large'}
-                            >Add New Pack</Button>
+                            >Add Pack</Button>
                         </div>
-                        <DataTable packs={packsData.packs}
+                        <DataTable packs={packs}
                                    userId={user?._id}
                         />
-                        {/*<PaginationBar pages={pages}*/}
-                        {/*               page={page}*/}
-                        {/*               pageCount={pageCount}*/}
-                        {/*               onChangePage={onChangePage}*/}
-                        {/*               onChangeItemsQuantity={onChangeItemsQuantity}*/}
-                        {/*/>*/}
-                        <PaginationBar/>
+                        <PaginationBar page={queryParams.page}
+                                       pageCount={queryParams.pageCount}
+                                       packsTotal={packsTotal}
+                                       handlePageChange={handlePageChange}
+                                       handlePageCountChange={handlePageCountChange}
+
+
+                        />
                     </Grid>
                 </Grid>
             </Paper>

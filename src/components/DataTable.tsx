@@ -35,8 +35,8 @@ export const DataTable: React.FC<DataTablePropsType> = ({
                                     <Link to={PACKS_URL + `/${pack._id}`}>{pack.name}</Link>
                                 </TableCell>
                                 <TableCell align='center'>{pack.cardsCount}</TableCell>
-                                <TableCell align='center'>{pack.updated}</TableCell>
-                                <TableCell align='center'>{pack.created}</TableCell>
+                                <TableCell align='center'>{new Date(pack.updated).toLocaleString()}</TableCell>
+                                <TableCell align='center'>{new Date(pack.created).toLocaleString()}</TableCell>
                                 <TableCell align='center'>
                                     {
                                         userId === pack.user_id

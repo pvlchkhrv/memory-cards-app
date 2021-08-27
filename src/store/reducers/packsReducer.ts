@@ -27,7 +27,7 @@ const packsReducer = (state = initState, action: PacksActionsType): PacksStateTy
         case PacksActions.SET_PAGE_COUNT:
             return {...state, pageCount: action.pageCount}
         case PacksActions.SET_PAGE:
-            return {...state, pageCount: action.page}
+            return {...state, page: action.page}
         case PacksActions.SET_PACKS_TOTAL_COUNT:
             return {...state, cardPacksTotalCount: action.value}
         default:
@@ -45,6 +45,8 @@ const fetchPacks = (payload: GetPacksQueryParamsType): AppThunkType => async (di
     try {
         const data = await packsAPI.getPacks(payload)
         dispatch(setPacks(data.cardPacks))
+        dispatch(setPageCount(data.pageCount))
+        dispatch(setCardPacksTotalCount(data.cardPacksTotalCount))
         dispatch(setAppStatus('succeed'))
     } catch (e) {
         dispatch(setAppError(e.response.data.error))
