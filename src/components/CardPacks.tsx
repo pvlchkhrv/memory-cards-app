@@ -7,6 +7,7 @@ import {DataTable} from './DataTable'
 import {RequestStatusType} from '../types/appTypes'
 import PaginationBar from './PaginationBar'
 import MyModal from './common/modal/MyModal';
+import AddNewItemForm from './forms/add-new-item-form/AddNewItemForm';
 
 type CardsPacksPropsType = {
     packs: PackType []
@@ -18,7 +19,7 @@ type CardsPacksPropsType = {
     isMine: boolean
     handlePageChange: (e: React.ChangeEvent<unknown>, value: number) => void
     handlePageCountChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
-    handleNewPackAdd: () => void
+    handleCreatePack: (e: React.FormEvent<HTMLButtonElement>, title: string) => void
     handleSearch: (e: ChangeEvent<HTMLInputElement>) => void
     newPackTitle: string
     setNewPackTitle: (newPackTitle: string) => void
@@ -37,9 +38,7 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({
                                                       setIsMine,
                                                       handlePageChange,
                                                       handlePageCountChange,
-                                                      handleNewPackAdd,
-                                                      newPackTitle,
-                                                      setNewPackTitle,
+                                                      handleCreatePack,
                                                       handleSearch,
                                                       packs,
                                                       packsTotal,
@@ -80,19 +79,25 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({
                             <TextField id='standard-search'
                                        label='Search'
                                        type='search'
-                                       variant={'outlined'}
-                                       size={'small'}
+                                       variant='outlined'
+                                       size='small'
                                        value={filter}
                                        onChange={handleSearch}
                             />
-                            <Button variant={'contained'}
-                                    color={'primary'}
-                                    size={'large'}
+                            <Button variant='contained'
+                                    color='primary'
+                                    size='large'
                                     onClick={() => setVisible(true)}
+                                    disabled={status === 'loading'}
                             >Add Pack</Button>
                             <MyModal visible={visible}
                                      setVisible={setVisible}
+                            >
+                                <AddNewItemForm type='pack'
+                                                onClick={handleCreatePack}
+                                                setVisible={setVisible}
                             />
+                            </MyModal>
                         </div>
                         <DataTable packs={packs}
                                    userId={user?._id}

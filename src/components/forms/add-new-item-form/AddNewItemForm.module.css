@@ -1,0 +1,19 @@
+.form {
+    height: 200px;
+    display: flex;
+    width: 250px;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form input{
+    width: 100%;
+}
+.button {
+    width: 150px;
+}
+
+.button button {
+    width: 100%;
+}

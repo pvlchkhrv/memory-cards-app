@@ -9,7 +9,7 @@ const packsAPI = {
         return response.data
     },
     addPack(payload: PackPayloadType) {
-        return instance.post(PACKS_URL, {cardsPacks: payload})
+        return instance.post(PACKS_URL, {cardsPack: payload})
     },
     removePack(id: string) {
         return instance.delete(PACKS_URL + `${id}`)

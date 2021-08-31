@@ -1,8 +1,8 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react'
 import CardPacks from './CardPacks'
 import {useDispatch} from 'react-redux'
 import {useAppSelector} from '../store'
-import {fetchPacks, setPage, setPageCount} from '../store/reducers/packsReducer'
+import {addPack, fetchPacks, setPage, setPageCount} from '../store/reducers/packsReducer'
 import {Redirect} from 'react-router';
 
 const CardPacksContainer = () => {
@@ -32,7 +32,6 @@ const CardPacksContainer = () => {
     }
     const handlePageChange = (e: React.ChangeEvent<unknown>, value: number) => dispatch(setPage(value))
     const handlePageCountChange = (e: ChangeEvent<HTMLSelectElement>) => dispatch(setPageCount(+e.currentTarget.value))
-    const handleNewPackAddButton = () => {}
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setFilter(e.currentTarget.value)
         isMine && filter
@@ -41,6 +40,10 @@ const CardPacksContainer = () => {
         if (!filter) {
             dispatch((fetchPacks({...queryParams})))
         }
+    }
+    const handleCreatePack = (e: FormEvent<HTMLButtonElement>, title: string) => {
+        e.preventDefault()
+        dispatch(addPack({name: title}))
     }
 
     useEffect(() => {
@@ -64,8 +67,8 @@ const CardPacksContainer = () => {
                    isMine={isMine}
                    handlePageChange={handlePageChange}
                    handlePageCountChange={handlePageCountChange}
-                   handleNewPackAdd={handleNewPackAddButton}
                    handleSearch={handleSearch}
+                   handleCreatePack={handleCreatePack}
                    newPackTitle={newPackTitle}
                    setNewPackTitle={setNewPackTitle}
                    setIsMine={setIsMine}
