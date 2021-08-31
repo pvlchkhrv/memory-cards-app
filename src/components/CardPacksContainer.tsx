@@ -2,14 +2,16 @@ import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react'
 import CardPacks from './CardPacks'
 import {useDispatch} from 'react-redux'
 import {useAppSelector} from '../store'
-import {addPack, fetchPacks, setPage, setPageCount} from '../store/reducers/packsReducer'
-import {Redirect} from 'react-router';
+import {addPack, fetchPacks, setPacks, setPage, setPageCount} from '../store/reducers/packsReducer'
+import {Redirect} from 'react-router'
 
 const CardPacksContainer = () => {
     const [isMine, setIsMine] = useState(false)
     const [newPackTitle, setNewPackTitle] = useState<string>('')
-    const [filter, setFilter] = useState<string>('')
     const [visible, setVisible] = useState<boolean>(false)
+    const [filter, setFilter] = useState<string>('')
+    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
+
     const dispatch = useDispatch()
     const status = useAppSelector(state => state.app.status)
     const {user} = useAppSelector(state => state.auth)
@@ -18,47 +20,53 @@ const CardPacksContainer = () => {
         maxCardsCount, minCardsCount
     } = useAppSelector(state => state.packs)
     const queryParams = {page, pageCount, maxCardsCount, minCardsCount}
-    const searchResults = !filter
-        ? packs
-        : packs.filter(p => p.name.toLowerCase().includes(p.name.toLocaleLowerCase()))
-    const getPacks = (id?: string) => {
+
+    const getPacks = (id?: string, filter?: string) => {
         if (id) {
-            dispatch(fetchPacks({...queryParams, user_id: id}))
-            setIsMine(true)
+            dispatch(fetchPacks({...queryParams, user_id: id, packName: filter}))
         } else {
-            dispatch(fetchPacks({...queryParams}))
-            setIsMine(false)
+            dispatch(fetchPacks({...queryParams, packName: filter}))
         }
     }
     const handlePageChange = (e: React.ChangeEvent<unknown>, value: number) => dispatch(setPage(value))
     const handlePageCountChange = (e: ChangeEvent<HTMLSelectElement>) => dispatch(setPageCount(+e.currentTarget.value))
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setFilter(e.currentTarget.value)
-        isMine && filter
-            ? dispatch(fetchPacks({...queryParams, user_id: user?._id, packName: filter}))
-            : dispatch((fetchPacks({...queryParams, packName: filter})))
-        if (!filter) {
-            dispatch((fetchPacks({...queryParams})))
-        }
+        // if (timeoutId) {
+        //     clearTimeout(timeoutId)
+        // }
+        // const newTimeoutId = setTimeout(() => {
+        //     isMine
+        //         ? dispatch(fetchPacks({...queryParams, user_id: user?._id, packName: filter}))
+        //         : dispatch((fetchPacks({...queryParams, packName: filter})))
+        //     if (!filter) {
+        //         dispatch((fetchPacks({...queryParams})))
+        //     }
+        //     setTimeoutId(newTimeoutId)
+        // },800)
     }
-    const handleCreatePack = (e: FormEvent<HTMLButtonElement>, title: string) => {
-        e.preventDefault()
-        dispatch(addPack({name: title}))
+    const handleCreatePack = async (e: FormEvent<HTMLButtonElement>, title: string) => {
+        await dispatch(addPack({name: title}))
+        isMine
+            ? getPacks(user?._id)
+            : getPacks()
+        setNewPackTitle('')
     }
 
     useEffect(() => {
         if (isMine) {
-            dispatch(fetchPacks({...queryParams, user_id: user?._id}))
+            getPacks(user?._id, filter)
         } else {
-            dispatch(fetchPacks({...queryParams}))
+            getPacks(filter)
         }
-    }, [page, pageCount, isMine])
+    }, [dispatch, page, isMine, filter])
 
     if (user === null) {
         return <Redirect to={'/login'}/>
     }
+
     return (
-        <CardPacks packs={searchResults}
+        <CardPacks packs={packs}
                    packsTotal={cardPacksTotalCount}
                    queryParams={queryParams}
                    user={user}

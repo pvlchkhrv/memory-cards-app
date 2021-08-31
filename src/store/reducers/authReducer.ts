@@ -45,6 +45,9 @@ const authMe = (): AppThunkType => async (dispatch) => {
         dispatch(setIsAuth(true))
         dispatch(setAppStatus('succeed'))
         localStorage.setItem('auth', 'true')
+        if (!data) {
+            setAppError('No internet connection!')
+        }
     } catch (e) {
         dispatch(setAppError(e.response.data.error))
         dispatch(setAppStatus('failed'))

@@ -17,7 +17,8 @@ const initState: PacksStateType = {
     maxCardsCount: 0,
     minCardsCount: 0,
     page: 1,
-    pageCount: 10
+    pageCount: 10,
+    filter: '',
 }
 
 const packsReducer = (state = initState, action: PacksActionsType): PacksStateType => {
@@ -39,7 +40,7 @@ const setPacks = (payload: PackType []) => ({type: PacksActions.SET_PACKS, paylo
 const setPageCount = (pageCount: number) => ({type: PacksActions.SET_PAGE_COUNT, pageCount}) as const
 const setPage = (page: number) => ({type: PacksActions.SET_PAGE, page}) as const
 const setCardPacksTotalCount = (value: number) => ({type: PacksActions.SET_PACKS_TOTAL_COUNT, value}) as const
-const filterPacks = (value: string) => ({type: PacksActions.FILTER_PACKS, value}) as const
+const setFilter = (value: string) => ({type: PacksActions.FILTER_PACKS, value}) as const
 
 const fetchPacks = (payload: GetPacksQueryParamsType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatus('loading'))
@@ -91,6 +92,7 @@ export {
     setPageCount,
     setPage,
     setCardPacksTotalCount,
+    setFilter,
     fetchPacks,
     addPack,
     updatePack,

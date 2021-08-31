@@ -96,7 +96,7 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({
                                 <AddNewItemForm type='pack'
                                                 onClick={handleCreatePack}
                                                 setVisible={setVisible}
-                            />
+                                />
                             </MyModal>
                         </div>
                         <DataTable packs={packs}

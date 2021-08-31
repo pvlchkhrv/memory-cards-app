@@ -39,6 +39,7 @@ export type PacksStateType = {
     minCardsCount: number
     page: number
     pageCount: number
+    filter: string
 }
 
 export enum PacksActions {

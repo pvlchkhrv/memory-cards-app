@@ -18,7 +18,7 @@ const appReducer = (state: AppStateType = initState, action: AppActionsType) => 
     }
 }
 
-const setAppError = (error: string) => ({type: AppActions.SET_APP_ERROR, error}) as const
+const setAppError = (error: string | null) => ({type: AppActions.SET_APP_ERROR, error}) as const
 const setAppStatus = (status: RequestStatusType) => ({type: AppActions.SET_APP_STATUS, status}) as const
 const setAppIsInitialized = (isInitialized: boolean) => ({type: AppActions.SET_APP_IS_INITIALIZED, isInitialized}) as const
 
