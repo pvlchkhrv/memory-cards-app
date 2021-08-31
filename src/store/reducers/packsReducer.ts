@@ -39,6 +39,7 @@ const setPacks = (payload: PackType []) => ({type: PacksActions.SET_PACKS, paylo
 const setPageCount = (pageCount: number) => ({type: PacksActions.SET_PAGE_COUNT, pageCount}) as const
 const setPage = (page: number) => ({type: PacksActions.SET_PAGE, page}) as const
 const setCardPacksTotalCount = (value: number) => ({type: PacksActions.SET_PACKS_TOTAL_COUNT, value}) as const
+const filterPacks = (value: string) => ({type: PacksActions.FILTER_PACKS, value}) as const
 
 const fetchPacks = (payload: GetPacksQueryParamsType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatus('loading'))
@@ -91,6 +92,7 @@ export {
     setPage,
     setCardPacksTotalCount,
     fetchPacks,
+    addPack,
     updatePack,
     removePack
 }

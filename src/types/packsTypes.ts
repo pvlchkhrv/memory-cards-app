@@ -46,8 +46,7 @@ export enum PacksActions {
     SET_PAGE_COUNT = 'SET_PAGE_COUNT',
     SET_PAGE = 'SET_PAGE',
     SET_PACKS_TOTAL_COUNT = 'SET_PACKS_TOTAL_COUNT',
-    SET_NEW_PACK = 'SET_NEW_PACK',
-    DELETE_PACK = 'DELETE_PACK',
+    FILTER_PACKS = 'FILTER_PACKS',
 }
 
 export type PackPayloadType = {
