@@ -1,20 +1,30 @@
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
-import {PackType} from '../types/packsTypes'
+import {PackPayloadType} from '../types/packsTypes'
 import {Link} from 'react-router-dom'
 import {PACKS_URL} from '../api/packsAPI'
 import s from './DataTable.module.css'
+import MyModal from './common/modal/MyModal';
+import EditItemForm from './forms/edit-item-form/EditItemForm';
+import {useState} from 'react';
+import {IPack} from '../models/IPack';
+import {formatDate} from '../utils/date';
 
 type DataTablePropsType = {
-    packs: PackType []
-    // deletePackHandler: (packId: string) => void
-    // editPackHandler: (packId: string, title: string) => void
+    packs: IPack []
     userId?: string
+    onDeleteClick: (id: string) => void
+    onEditClick: (payload: PackPayloadType) => void
+    visible: boolean
+    setVisible: (visible: boolean) => void
 }
 
 export const DataTable: React.FC<DataTablePropsType> = ({
                                                             packs,
-                                                            userId
+                                                            userId,
+                                                            onDeleteClick,
+                                                            onEditClick,
                                                         }) => {
+    const [modal, setModal] = useState<boolean>(false)
     return (
         <div>
             <TableContainer component={Paper}>
@@ -35,14 +45,22 @@ export const DataTable: React.FC<DataTablePropsType> = ({
                                     <Link to={PACKS_URL + `/${pack._id}`}>{pack.name}</Link>
                                 </TableCell>
                                 <TableCell align='center'>{pack.cardsCount}</TableCell>
-                                <TableCell align='center'>{new Date(pack.updated).toLocaleString()}</TableCell>
+                                <TableCell align='center'>{formatDate(new Date(pack.updated))}</TableCell>
                                 <TableCell align='center'>{new Date(pack.created).toLocaleString()}</TableCell>
                                 <TableCell align='center'>
                                     {
                                         userId === pack.user_id
                                             ? <div>
-                                                <Button>Delete</Button>
-                                                <Button>Edit</Button>
+                                                <Button onClick={() => onDeleteClick(pack._id)}>Delete</Button>
+                                                <Button onClick={() => setModal(true)}>Edit</Button>
+                                                <MyModal visible={modal} setVisible={setModal}>
+                                                     <EditItemForm onEditClick={onEditClick}
+                                                                   buttonTitle='Edit pack'
+                                                                   setVisible={setModal}
+                                                                   pack_id={pack._id}
+                                                                   name={pack.name}
+                                                     />
+                                                </MyModal>
                                                 <Button onClick={() => {
                                                 }}>Learn</Button>
                                             </div>

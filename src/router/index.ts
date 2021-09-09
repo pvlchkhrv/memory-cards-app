@@ -5,16 +5,15 @@ import Error404 from '../pages/Error404';
 import SetPassword from '../pages/SetPassword';
 import Profile from '../components/Profile';
 import Packs from '../pages/Packs';
-import App from '../App';
 
 const privateRoutes = [
-    {path: '/profile', component: Profile, exact: true},
     {path: '/packs', component: Packs, exact: true},
+    {path: '/profile', component: Profile, exact: true},
 ];
 
 const publicRoutes = [
+    {path: '/', component: Packs, exact: true},
     {path: '/login', component: Login, exact: false},
-    {path: '/', component: Login, exact: true},
     {path: '/register', component: Register, exact: true},
     {path: '/restore', component: RestorePassword, exact: true},
     {path: '/set-password', component: SetPassword, exact: true},

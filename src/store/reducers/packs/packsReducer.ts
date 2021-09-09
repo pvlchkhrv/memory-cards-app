@@ -4,11 +4,11 @@ import {
     PacksActions,
     PacksActionsType,
     PacksStateType,
-    PackType
-} from '../../types/packsTypes';
-import {AppThunkType} from '../index';
-import {setAppError, setAppStatus} from './appReducer';
-import {packsAPI} from '../../api/packsAPI';
+} from '../../../types/packsTypes';
+import {packsAPI} from '../../../api/packsAPI';
+import {IPack} from '../../../models/IPack';
+import {AppActionCreators} from '../app/action-creators';
+import {AppDispatch} from '../../index';
 
 
 const initState: PacksStateType = {
@@ -36,53 +36,53 @@ const packsReducer = (state = initState, action: PacksActionsType): PacksStateTy
     }
 }
 
-const setPacks = (payload: PackType []) => ({type: PacksActions.SET_PACKS, payload}) as const
+const setPacks = (payload: IPack[]) => ({type: PacksActions.SET_PACKS, payload}) as const
 const setPageCount = (pageCount: number) => ({type: PacksActions.SET_PAGE_COUNT, pageCount}) as const
 const setPage = (page: number) => ({type: PacksActions.SET_PAGE, page}) as const
 const setCardPacksTotalCount = (value: number) => ({type: PacksActions.SET_PACKS_TOTAL_COUNT, value}) as const
 const setFilter = (value: string) => ({type: PacksActions.FILTER_PACKS, value}) as const
 
-const fetchPacks = (payload: GetPacksQueryParamsType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatus('loading'))
+const fetchPacks = (payload: GetPacksQueryParamsType) => async (dispatch: AppDispatch) => {
+    dispatch(AppActionCreators.setAppStatus('loading'))
     try {
         const data = await packsAPI.getPacks(payload)
         dispatch(setPacks(data.cardPacks))
         dispatch(setPageCount(data.pageCount))
         dispatch(setCardPacksTotalCount(data.cardPacksTotalCount))
-        dispatch(setAppStatus('succeed'))
+        dispatch(AppActionCreators.setAppStatus('succeed'))
     } catch (e) {
-        dispatch(setAppError(e.response.data.error))
-        dispatch(setAppStatus('failed'))
+        dispatch(AppActionCreators.setAppError(e.response.data.error))
+        dispatch(AppActionCreators.setAppStatus('failed'))
     }
 }
-const addPack = (payload: PackPayloadType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatus('loading'))
+const addPack = (payload: PackPayloadType) => async (dispatch: AppDispatch) => {
+    dispatch(AppActionCreators.setAppStatus('loading'))
     try {
         await packsAPI.addPack(payload)
-        dispatch(setAppStatus('succeed'))
+        dispatch(AppActionCreators.setAppStatus('succeed'))
     } catch (e) {
-        dispatch(setAppError(e.response.data.error))
-        dispatch(setAppStatus('failed'))
+        dispatch(AppActionCreators.setAppError(e.response.data.error))
+        dispatch(AppActionCreators.setAppStatus('failed'))
     }
 }
-const updatePack = (payload: PackPayloadType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatus('loading'))
+const updatePack = (payload: PackPayloadType) => async (dispatch: AppDispatch) => {
+    dispatch(AppActionCreators.setAppStatus('loading'))
     try {
         await packsAPI.updatePack(payload)
-        dispatch(setAppStatus('succeed'))
+        dispatch(AppActionCreators.setAppStatus('succeed'))
     } catch (e) {
-        dispatch(setAppError(e.response.data.error))
-        dispatch(setAppStatus('failed'))
+        dispatch(AppActionCreators.setAppError(e.response.data.error))
+        dispatch(AppActionCreators.setAppStatus('failed'))
     }
 }
-const removePack = (id: string): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatus('loading'))
+const removePack = (id: string) => async (dispatch: AppDispatch) => {
+    dispatch(AppActionCreators.setAppStatus('loading'))
     try {
         await packsAPI.removePack(id)
-        dispatch(setAppStatus('succeed'))
+        dispatch(AppActionCreators.setAppStatus('succeed'))
     } catch (e) {
-        dispatch(setAppError(e.response.data.error))
-        dispatch(setAppStatus('failed'))
+        dispatch(AppActionCreators.setAppError(e.response.data.error))
+        dispatch(AppActionCreators.setAppStatus('failed'))
     }
 }
 

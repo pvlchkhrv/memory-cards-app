@@ -1,7 +1,7 @@
 import {GetPacksQueryParamsType, GetPacksResponseType, PackPayloadType} from '../types/packsTypes'
 import {instance} from './instance'
 
-const PACKS_URL = 'cards/pack'
+const PACKS_URL = 'cards/pack/'
 
 const packsAPI = {
     async getPacks(queryParams: GetPacksQueryParamsType) {
@@ -12,7 +12,7 @@ const packsAPI = {
         return instance.post(PACKS_URL, {cardsPack: payload})
     },
     removePack(id: string) {
-        return instance.delete(PACKS_URL + `${id}`)
+        return instance.delete(PACKS_URL, {params:{id}})
     },
     updatePack(payload: PackPayloadType) {
         return instance.put(PACKS_URL, {cardsPack: payload})

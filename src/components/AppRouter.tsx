@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
-import {Redirect, Route, Switch} from 'react-router';
+import React from 'react';
+import {Route, Switch} from 'react-router';
 import {privateRoutes, publicRoutes} from '../router';
-import {useAppSelector} from '../store';
+import {useAppSelector} from '../hooks/useAppSelector';
 
 const AppRouter = () => {
 
-    const isAuth = useAppSelector(state => state.auth.isAuth)
+    const {isAuth} = useAppSelector(state => state.auth)
     return (
         !isAuth ?
             <Switch>

@@ -1,23 +1,26 @@
 import React, {useState} from 'react'
 import {Button, TextField} from '@material-ui/core'
-import s from './AddNewItemForm.module.css'
+import s from './EditItemForm.module.css'
+import {PackPayloadType} from '../../../types/packsTypes';
 
 type AddItemPropsType = {
-    onClick: (title: string) => void
+    onEditClick: (payload: PackPayloadType) => void
     setVisible: (visible: boolean) => void
     buttonTitle: string
+    pack_id: string
+    name: string
 }
 
-const AddNewItemForm: React.FC<AddItemPropsType> = ({onClick, buttonTitle, setVisible}) => {
-    const [title, setTitle] = useState<string>('')
+const EditItemForm: React.FC<AddItemPropsType> = ({onEditClick, buttonTitle, setVisible, name, pack_id}) => {
+    const [title, setTitle] = useState<string>(name)
     return (
         <form className={s.form}>
-            <TextField onChange={event => setTitle(event.currentTarget.value)}
-                       placeholder='Title'
+            <TextField onChange={e => setTitle(e.currentTarget.value)}
+                       value={title}
             />
             <div className={s.button}>
                 <Button onClick={() => {
-                    onClick(title)
+                    onEditClick({name: title, _id: pack_id})
                     setVisible(false)
                     setTitle('')
                 }}
@@ -31,4 +34,4 @@ const AddNewItemForm: React.FC<AddItemPropsType> = ({onClick, buttonTitle, setVi
     )
 }
 
-export default AddNewItemForm;
+export default EditItemForm;

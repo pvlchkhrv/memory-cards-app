@@ -1,25 +1,28 @@
 import React, {ChangeEvent} from 'react'
 import {Button, Container, Grid, LinearProgress, Paper, TextField} from '@material-ui/core'
 import s from './CardPacks.module.css'
-import {GetPacksQueryParamsType, PackType} from '../types/packsTypes'
-import {UserDataType} from '../types/authTypes'
+import {GetPacksQueryParamsType, PackPayloadType} from '../types/packsTypes'
 import {DataTable} from './DataTable'
-import {RequestStatusType} from '../types/appTypes'
+import {RequestStatusType} from '../store/reducers/app/types'
 import PaginationBar from './PaginationBar'
 import MyModal from './common/modal/MyModal';
 import AddNewItemForm from './forms/add-new-item-form/AddNewItemForm';
+import {IPack} from '../models/IPack';
+import {IUser} from '../models/IUser';
 
 type CardsPacksPropsType = {
-    packs: PackType []
+    packs: IPack []
     packsTotal: number
     queryParams: GetPacksQueryParamsType
-    user: UserDataType | null
+    user: IUser
     getPacks: (id?: string) => void
     status: RequestStatusType
     isMine: boolean
     handlePageChange: (e: React.ChangeEvent<unknown>, value: number) => void
     handlePageCountChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
-    handleCreatePack: (e: React.FormEvent<HTMLButtonElement>, title: string) => void
+    handleCreatePack: (title: string) => void
+    handleDeletePack: (id: string) => void
+    handleEditPack: (payload: PackPayloadType) => void
     handleSearch: (e: ChangeEvent<HTMLInputElement>) => void
     newPackTitle: string
     setNewPackTitle: (newPackTitle: string) => void
@@ -33,13 +36,14 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({
                                                       queryParams,
                                                       user,
                                                       status,
-                                                      getPacks,
                                                       isMine,
                                                       setIsMine,
                                                       handlePageChange,
                                                       handlePageCountChange,
                                                       handleCreatePack,
                                                       handleSearch,
+                                                      handleDeletePack,
+                                                      handleEditPack,
                                                       packs,
                                                       packsTotal,
                                                       filter,
@@ -93,7 +97,7 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({
                             <MyModal visible={visible}
                                      setVisible={setVisible}
                             >
-                                <AddNewItemForm type='pack'
+                                <AddNewItemForm buttonTitle='Create pack'
                                                 onClick={handleCreatePack}
                                                 setVisible={setVisible}
                                 />
@@ -101,12 +105,17 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({
                         </div>
                         <DataTable packs={packs}
                                    userId={user?._id}
+                                   onDeleteClick={handleDeletePack}
+                                   onEditClick={handleEditPack}
+                                   visible={visible}
+                                   setVisible={setVisible}
                         />
                         <PaginationBar page={queryParams.page}
                                        pageCount={queryParams.pageCount}
                                        packsTotal={packsTotal}
                                        handlePageChange={handlePageChange}
                                        handlePageCountChange={handlePageCountChange}
+                                       status={status}
                         />
                     </Grid>
                 </Grid>

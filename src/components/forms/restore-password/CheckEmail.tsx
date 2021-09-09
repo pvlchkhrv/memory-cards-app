@@ -8,7 +8,7 @@ type CheckEmailPropsType = {
     info: string | null
 }
 
-const CheckEmail: React.FC<CheckEmailPropsType> = ({ info}) => {
+const CheckEmail: React.FC<CheckEmailPropsType> = ({info}) => {
     const history = useHistory();
     useEffect(() => {
         setTimeout(() => history.push('/login'), 3000)

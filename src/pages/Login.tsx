@@ -1,34 +1,32 @@
 import React, {useEffect} from 'react';
 import {LoginForm} from '../components/forms/login/LoginForm';
-import {useAppSelector} from '../store';
 import {Redirect} from 'react-router';
-import {LoginPayloadType} from '../types/authTypes';
-import {authMe, login} from '../store/reducers/authReducer';
+import {LoginPayload} from '../store/reducers/auth/types';
 import {useDispatch} from 'react-redux';
+import {useAppSelector} from '../hooks/useAppSelector';
+import {useActions} from '../hooks/useActions';
 
 
 const Login = () => {
-    const dispatch = useDispatch()
-    const user = useAppSelector(state => state.auth.user)
-    const status = useAppSelector(state => state.app.status)
-    const onSubmitHandler = (payload: LoginPayloadType) => {
-        dispatch(login(payload))
-    }
+    const {user} = useAppSelector(state => state.auth);
+    const {status} = useAppSelector(state => state.app);
+    const {login, authMe} = useActions()
+    const onSubmitHandler = (payload: LoginPayload) => {
+        login(payload);
+    };
 
     useEffect(() => {
-        dispatch(authMe())
-    }, [])
+        authMe();
+    }, []);
 
-    if (user) {
+    if (Object.keys(user).length !== 0) {
         return <Redirect to={'/packs'}/>
     }
 
     return (
-        <div>
-            <LoginForm onSubmitHandler={onSubmitHandler}
-                       status={status}
-            />
-        </div>
+        <LoginForm onSubmitHandler={onSubmitHandler}
+                   status={status}
+        />
     );
 };
 

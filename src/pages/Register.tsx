@@ -1,28 +1,14 @@
-import React from 'react'
-import {RegisterForm} from '../components/forms/register/RegisterForm'
-import {RegisterPayloadType} from '../types/authTypes'
-import {useDispatch} from 'react-redux'
-import {register} from '../store/reducers/authReducer'
-import {useAppSelector} from '../store';
+import React from 'react';
+import {RegisterForm} from '../components/forms/register/RegisterForm';
+import {RegisterPayload} from '../store/reducers/auth/types';
 import RegisteredSuccess from '../components/forms/register/RegisteredSuccess';
+import {useAppSelector} from '../hooks/useAppSelector';
 
 
 const Register = () => {
-    const dispatch = useDispatch()
-    const isRegistered = useAppSelector(state => state.auth.isRegistered)
-    const status = useAppSelector(state => state.app.status)
-    const onSubmitHandler = (payload: RegisterPayloadType) => {
-        dispatch(register(payload))
-    }
-
-    if (isRegistered) {
-        return <RegisteredSuccess/>
-    }
     return (
         <div>
-            <RegisterForm onSubmitHandler={onSubmitHandler}
-                          status={status}
-            />
+            <RegisterForm/>
         </div>
     );
 };

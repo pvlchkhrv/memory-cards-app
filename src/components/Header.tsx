@@ -3,12 +3,12 @@ import s from './Header.module.css'
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted'
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt'
 import {Button} from '@material-ui/core';
-import {logout} from '../store/reducers/authReducer';
 import {useDispatch} from 'react-redux';
+import {useActions} from '../hooks/useActions';
 
 const Header = () => {
     const dispatch = useDispatch()
-    const onLogoutHandler = () => dispatch(logout())
+    const {logout} = useActions();
 
     return (
         <header className={s.header}>
@@ -23,7 +23,7 @@ const Header = () => {
                 </div>
             </div>
             <div>
-                <Button onClick={onLogoutHandler}>
+                <Button onClick={logout}>
                     Sign Out
                 </Button>
             </div>

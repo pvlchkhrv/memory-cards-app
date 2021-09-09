@@ -1,15 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import {Button, FormGroup, FormLabel, LinearProgress, Paper, TextField} from '@material-ui/core';
 import s from './RegisterForm.module.css'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import {useHistory} from 'react-router';
-import {RequestStatusType} from '../../../types/appTypes';
-
-type RegisterPropsType = {
-    onSubmitHandler: (values: { email: string, password: string }) => void
-    status: RequestStatusType
-}
+import {useActions} from '../../../hooks/useActions';
+import {useAppSelector} from '../../../hooks/useAppSelector';
+import RegisteredSuccess from './RegisteredSuccess';
 
 type FormikErrorType = {
     email?: string;
@@ -17,7 +14,11 @@ type FormikErrorType = {
     confirmPassword?: string;
 }
 
-const RegisterForm: React.FC<RegisterPropsType> = ({onSubmitHandler, status}) => {
+const RegisterForm: React.FC = () => {
+    const [isRegistered, setIsRegistered] = useState<boolean>(false)
+    const history = useHistory();
+    const {register} = useActions();
+    const {status} = useAppSelector(state => state.app);
     const formik = useFormik({
         initialValues: {
             email: 'panich2303@gmail.com',
@@ -34,13 +35,13 @@ const RegisterForm: React.FC<RegisterPropsType> = ({onSubmitHandler, status}) =>
             }
 
             if (!values.password) {
-                errors.password = 'Password is required!';
+                errors.password = 'Required!';
             } else if (values.password.length < 8) {
                 errors.password = 'Must be more than 7 characters'
             }
 
             if (!values.confirmPassword) {
-                errors.confirmPassword = 'Password is required!';
+                errors.confirmPassword = 'Required!';
             } else if (values.confirmPassword.length < 8) {
                 errors.confirmPassword = 'Must be more than 7 characters'
             } else if (values.confirmPassword !== values.password) {
@@ -50,10 +51,14 @@ const RegisterForm: React.FC<RegisterPropsType> = ({onSubmitHandler, status}) =>
             return errors;
         },
         onSubmit: (values) => {
-            onSubmitHandler(values);
+            setIsRegistered(true);
+            register(values.email, values.password);
         },
-    })
-    const history = useHistory()
+    });
+
+    if (isRegistered) {
+        return <RegisteredSuccess/>
+    }
 
     return (
         <div>
@@ -92,21 +97,23 @@ const RegisterForm: React.FC<RegisterPropsType> = ({onSubmitHandler, status}) =>
                             <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
                         <VisibilityIcon className={s.icon1}/>
                         <VisibilityIcon className={s.icon2}/>
-                        <Button
-                            type={'submit'}
-                            variant={'contained'}
-                            color={'primary'}
-                            className={s.button}
-                            disabled={status === 'loading'}
-                        >
-                            Sign Up</Button>
-                        <Button
-                            onClick={() => history.push('/login')}
-                            type={'submit'}
-                            variant={'contained'}
-                            color={'secondary'}
-                            className={s.button}>
-                            Cancel</Button>
+                        <div className={s.buttonBlock}>
+                            <Button
+                                onClick={() => history.push('/login')}
+                                color={'secondary'}
+                                className={s.button}
+                                variant={'contained'}
+                            >
+                                Cancel</Button>
+                            <Button
+                                type={'submit'}
+                                color={'primary'}
+                                variant={'contained'}
+                                className={s.button}
+                                disabled={status === 'loading'}
+                            >
+                                Sign Up</Button>
+                        </div>
                     </FormGroup>
                 </form>
             </Paper>

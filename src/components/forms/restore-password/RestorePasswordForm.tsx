@@ -4,21 +4,19 @@ import {Button, FormGroup, FormLabel, LinearProgress, Paper, TextField} from '@m
 import s from './RestorePassword.module.css'
 import CheckEmail from './CheckEmail'
 import {useHistory} from 'react-router'
-import {RequestStatusType} from '../../../types/appTypes';
-
-type RestorePasswordPropsType = {
-    onSubmitHandler: (values: { email: string }) => void;
-    info: string | null;
-    status: RequestStatusType;
-}
+import {useAppSelector} from '../../../hooks/useAppSelector';
+import {useActions} from '../../../hooks/useActions';
 
 type FormikErrorType = {
     email?: string;
 }
 
-const RestorePasswordForm: React.FC<RestorePasswordPropsType> = ({onSubmitHandler, info, status}) => {
-    const history = useHistory()
-
+const RestorePasswordForm: React.FC = () => {
+    const info = useAppSelector(state => state.auth.info);
+    const status = useAppSelector(state => state.app.status);
+    const [isSent, setIsSent] = useState<boolean>(false);
+    const {restorePassword} = useActions();
+    const history = useHistory();
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -34,10 +32,12 @@ const RestorePasswordForm: React.FC<RestorePasswordPropsType> = ({onSubmitHandle
             return errors
         },
         onSubmit: (values) => {
-            onSubmitHandler(values)
+            setIsSent(true);
+            restorePassword(values.email);
         },
     });
-    if (status === 'succeed') {
+
+    if (isSent) {
         return <CheckEmail info={info}/>
     }
     return (

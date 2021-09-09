@@ -3,15 +3,11 @@ import {useFormik} from 'formik';
 import {Button, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core';
 import s from './SetPassword.module.css';
 
-type SetPasswordPropsType = {
-    onSubmitHandler: (values: {}) => void
-}
-
 type FormikErrorType = {
     password?: string;
 }
 
-const SetPasswordForm: React.FC<SetPasswordPropsType> = ({onSubmitHandler}) => {
+const SetPasswordForm: React.FC = () => {
     const formik = useFormik({
         initialValues: {
             password: 'panich2303@gmail.com',
@@ -28,7 +24,7 @@ const SetPasswordForm: React.FC<SetPasswordPropsType> = ({onSubmitHandler}) => {
             return errors;
         },
         onSubmit: (values) => {
-            onSubmitHandler(values);
+            ;
         },
     });
     return (
@@ -54,22 +50,24 @@ const SetPasswordForm: React.FC<SetPasswordPropsType> = ({onSubmitHandler}) => {
                 {formik.touched.password &&
                 formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                 <p className={s.text}>Create new password and we will send you further instructions to email</p>
-                <Button
-                    type={'submit'}
-                    variant={'contained'}
-                    color={'primary'}
-                    className={s.button}
-                    onClick={() => {
-                    }}>
-                    Send my password</Button>
-                <Button
-                    onClick={() => {
-                    }}
-                    type={'submit'}
-                    variant={'contained'}
-                    color={'secondary'}
-                    className={s.button}>
-                    Cancel</Button>
+                <div className={s.buttonBlock}>
+                    <Button
+                        onClick={() => {
+                        }}
+                        type={'submit'}
+                        variant={'contained'}
+                        color={'secondary'}
+                        className={s.button}>
+                        Cancel</Button>
+                    <Button
+                        type={'submit'}
+                        variant={'contained'}
+                        color={'primary'}
+                        className={s.button}
+                        onClick={() => {
+                        }}>
+                        Change password</Button>
+                </div>
             </FormGroup>
         </Paper>
     );

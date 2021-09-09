@@ -1,4 +1,4 @@
-import {PacksStateType, PackType} from '../../types/packsTypes';
+import {PacksStateType, PackType} from '../../../types/packsTypes';
 import {packsReducer, setCardPacksTotalCount, setPacks, setPage, setPageCount} from './packsReducer';
 
 let startState: PacksStateType

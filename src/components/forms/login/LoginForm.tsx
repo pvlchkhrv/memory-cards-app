@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import {
     Button,
@@ -13,11 +13,11 @@ import {
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import s from './LoginForm.module.css';
 import {Link} from 'react-router-dom';
-import {LoginPayloadType} from '../../../types/authTypes';
-import {RequestStatusType} from '../../../types/appTypes';
+import {LoginPayload} from '../../../store/reducers/auth/types';
+import {RequestStatusType} from '../../../store/reducers/app/types';
 
 type LoginPropsType = {
-    onSubmitHandler: (values: LoginPayloadType) => void
+    onSubmitHandler: (values: LoginPayload) => void
     status: RequestStatusType
 }
 
@@ -43,7 +43,7 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
             }
 
             if (!values.password) {
-                errors.password = 'Password is required!';
+                errors.password = 'Required';
             } else if (values.password.length < 8) {
                 errors.password = 'Must be more than 7 characters'
             }
@@ -53,7 +53,8 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
         onSubmit: (values) => {
             onSubmitHandler(values);
         },
-    })
+    });
+    const [visible, setVisible]  = useState<boolean>(false);
 
     return (
         <div>
@@ -73,20 +74,27 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
                         formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
                         <TextField
                             variant={'standard'}
-                            type="password"
-                            label="Password"
-                            margin="normal"
+                            type={visible ? 'text' : 'password'}
+                            label='Password'
+                            margin='normal'
+                            className={s.passwordInput}
                             {...formik.getFieldProps('password')}
                         />
                         {formik.touched.password &&
                         formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
-                        <VisibilityIcon className={s.icon}/>
+                        {
+                            !formik.errors.password && !formik.errors.email && <VisibilityIcon className={s.icon}
+                                                                       onClick={() => setVisible(!visible)}
+                                                                       color={visible ? 'primary' : 'inherit'}
+                            />
+                        }
                         <FormControlLabel
                             label={'Remember me'}
                             control={
                                 <Checkbox
                                     {...formik.getFieldProps('rememberMe')}
-                                    color='primary'/>
+                                    color='primary'
+                                />
                             }
                         />
                         <Button
@@ -98,12 +106,13 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
                         >
                             Sign In</Button>
                     </FormGroup>
+                    <div className={s.signUpBlock}>
+                        <span>Don't have an account? <Link to='/register'>Sign Up!</Link></span>
+
+                        <Link to='/restore'>Forgot Password?</Link>
+                    </div>
                 </form>
-                <div className={s.signUpBlock}>
-                    <span>Don't have an account?</span>
-                    <Link to='/register'>Sign Up</Link>
-                    <Link to='/restore'>Forgot Password?</Link>
-                </div>
+
             </Paper>
             {status === 'loading' && <LinearProgress/>}
         </div>

@@ -1,27 +1,13 @@
-import {setCardPacksTotalCount, setPacks, setPage, setPageCount} from '../store/reducers/packsReducer';
-
-export type PackType = {
-    _id: string
-    user_id: string
-    name: string
-    path: string // папка	,
-    cardsCount: number
-    grade: number // средняя оценка карточек
-    shots: number // количество попыток			приватные колоды будут
-    rating: number // лайки	только если указать свой
-    type: string
-    created: string
-    updated: string
-    __v: number
-}
+import {setCardPacksTotalCount, setPacks, setPage, setPageCount} from '../store/reducers/packs/packsReducer';
+import {IPack} from '../models/IPack';
 
 export type GetPacksResponseType = {
-    cardPacks: PackType[]
-    page: number
-    pageCount: number
-    minCardsCount: number
-    maxCardsCount: number
-    cardPacksTotalCount: number
+    cardPacks: IPack[];
+    page: number;
+    pageCount: number;
+    minCardsCount: number;
+    maxCardsCount: number;
+    cardPacksTotalCount: number;
 }
 export type GetPacksQueryParamsType = {
     packName?: string;
@@ -33,13 +19,13 @@ export type GetPacksQueryParamsType = {
     sortPacks?: string
 }
 export type PacksStateType = {
-    packs: PackType []
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
-    filter: string
+    packs: IPack[];
+    cardPacksTotalCount: number;
+    maxCardsCount: number;
+    minCardsCount: number;
+    page: number;
+    pageCount: number;
+    filter: string;
 }
 
 export enum PacksActions {

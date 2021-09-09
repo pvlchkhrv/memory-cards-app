@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react'
 import {Pagination} from '@material-ui/lab'
 import MySelect from './common/select/MySelect'
 import s from './PaginationBar.module.css'
+import {RequestStatusType} from '../store/reducers/app/types';
 
 type PaginationBarPropsType = {
     page?: number
@@ -9,6 +10,7 @@ type PaginationBarPropsType = {
     packsTotal: number
     handlePageChange: (e: React.ChangeEvent<unknown>, value: number) => void
     handlePageCountChange: (e: ChangeEvent<HTMLSelectElement>) => void
+    status: RequestStatusType
 }
 
 const PaginationBar: React.FC<PaginationBarPropsType> = ({
@@ -16,7 +18,8 @@ const PaginationBar: React.FC<PaginationBarPropsType> = ({
                                                              pageCount,
                                                              packsTotal,
                                                              handlePageChange,
-                                                             handlePageCountChange
+                                                             handlePageCountChange,
+                                                             status
                                                          }) => {
     const options = [
         {value: '10', name: '10'},
@@ -31,6 +34,7 @@ const PaginationBar: React.FC<PaginationBarPropsType> = ({
                         color='primary'
                         page={page}
                         onChange={handlePageChange}
+                        disabled={status === 'loading'}
             />
             <MySelect options={options}
                       defaultValue='Packs on page'

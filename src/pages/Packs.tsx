@@ -5,7 +5,6 @@ import CardPacksContainer from '../components/CardPacksContainer'
 const Packs = () => {
     return (
         <div className='packsPage'>
-            <Header/>
             <CardPacksContainer/>
         </div>
     )
