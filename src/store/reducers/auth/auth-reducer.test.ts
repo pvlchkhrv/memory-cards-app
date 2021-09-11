@@ -8,7 +8,6 @@ beforeEach(() => {
     startState = {
         isAuth: false,
         user: {} as IUser,
-        isRegistered: false,
         info: ''
     }
 });

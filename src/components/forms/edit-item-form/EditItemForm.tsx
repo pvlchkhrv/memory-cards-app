@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import {Button, TextField} from '@material-ui/core'
 import s from './EditItemForm.module.css'
-import {PackPayloadType} from '../../../types/packsTypes';
+import {PackPayload} from '../../../store/reducers/packs/types';
 
 type AddItemPropsType = {
-    onEditClick: (payload: PackPayloadType) => void
+    onEditClick: (payload: PackPayload) => void
     setVisible: (visible: boolean) => void
     buttonTitle: string
     pack_id: string

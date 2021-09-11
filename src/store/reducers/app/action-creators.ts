@@ -1,7 +1,7 @@
 import {AppActionEnum, RequestStatusType, SetAppError, SetAppIsInitialized, SetAppStatus} from './types';
 import {AppDispatch} from '../../index';
 import {AuthActionCreators} from '../auth/auth-action-creators';
-import {handleError} from '../../../utils/handleError';
+import {authAPI} from '../../../api/authAPI';
 
 export const AppActionCreators = {
     setAppIsInitialized: (isInitialized: boolean): SetAppIsInitialized => ({
@@ -10,20 +10,17 @@ export const AppActionCreators = {
     }),
     setAppStatus: (status: RequestStatusType): SetAppStatus => ({type: AppActionEnum.SET_APP_STATUS, payload: status}),
     setAppError: (error: string): SetAppError => ({type: AppActionEnum.SET_APP_ERROR, payload: error}),
-    initializeApp: () => (dispatch: AppDispatch) => {
+    initializeApp: () => async (dispatch: AppDispatch) => {
         dispatch(AppActionCreators.setAppStatus('loading'));
         try {
-            const user = localStorage.getItem('user');
-            if (user) {
-                dispatch(AuthActionCreators.setUser(JSON.parse(user)));
-                dispatch(AppActionCreators.setAppIsInitialized(true));
-                dispatch(AppActionCreators.setAppStatus('succeed'));
-            } else {
-                dispatch(AppActionCreators.setAppIsInitialized(true))
-                dispatch(AppActionCreators.setAppStatus('succeed'));
-            }
+            const user = await authAPI.authMe();
+            dispatch(AuthActionCreators.setUser(user));
+            dispatch(AppActionCreators.setAppIsInitialized(true));
+            dispatch(AppActionCreators.setAppStatus('succeed'));
         } catch (e) {
-            handleError(e);
+            const error = e.response ? e.response.data.error : (e.message + ', more details in console');
+            dispatch(AppActionCreators.setAppError(error));
+            dispatch(AppActionCreators.setAppStatus('failed'));
         }
     }
 }

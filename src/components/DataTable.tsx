@@ -1,19 +1,19 @@
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
-import {PackPayloadType} from '../types/packsTypes'
 import {Link} from 'react-router-dom'
 import {PACKS_URL} from '../api/packsAPI'
 import s from './DataTable.module.css'
-import MyModal from './common/modal/MyModal';
+import AddPackModal from './modals/AddPackModal';
 import EditItemForm from './forms/edit-item-form/EditItemForm';
 import {useState} from 'react';
 import {IPack} from '../models/IPack';
 import {formatDate} from '../utils/date';
+import {PackPayload} from '../store/reducers/packs/types';
 
 type DataTablePropsType = {
     packs: IPack []
     userId?: string
     onDeleteClick: (id: string) => void
-    onEditClick: (payload: PackPayloadType) => void
+    onEditClick: (payload: PackPayload) => void
     visible: boolean
     setVisible: (visible: boolean) => void
 }
@@ -53,14 +53,14 @@ export const DataTable: React.FC<DataTablePropsType> = ({
                                             ? <div>
                                                 <Button onClick={() => onDeleteClick(pack._id)}>Delete</Button>
                                                 <Button onClick={() => setModal(true)}>Edit</Button>
-                                                <MyModal visible={modal} setVisible={setModal}>
+                                                <AddPackModal visible={modal} setVisible={setModal}>
                                                      <EditItemForm onEditClick={onEditClick}
                                                                    buttonTitle='Edit pack'
                                                                    setVisible={setModal}
                                                                    pack_id={pack._id}
                                                                    name={pack.name}
                                                      />
-                                                </MyModal>
+                                                </AddPackModal>
                                                 <Button onClick={() => {
                                                 }}>Learn</Button>
                                             </div>

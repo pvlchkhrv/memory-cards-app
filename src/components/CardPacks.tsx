@@ -1,19 +1,19 @@
 import React, {ChangeEvent} from 'react'
 import {Button, Container, Grid, LinearProgress, Paper, TextField} from '@material-ui/core'
 import s from './CardPacks.module.css'
-import {GetPacksQueryParamsType, PackPayloadType} from '../types/packsTypes'
 import {DataTable} from './DataTable'
 import {RequestStatusType} from '../store/reducers/app/types'
 import PaginationBar from './PaginationBar'
-import MyModal from './common/modal/MyModal';
+import AddPackModal from './modals/AddPackModal';
 import AddNewItemForm from './forms/add-new-item-form/AddNewItemForm';
 import {IPack} from '../models/IPack';
 import {IUser} from '../models/IUser';
+import {GetPacksQueryParams, PackPayload} from '../store/reducers/packs/types';
 
 type CardsPacksPropsType = {
     packs: IPack []
     packsTotal: number
-    queryParams: GetPacksQueryParamsType
+    queryParams: GetPacksQueryParams
     user: IUser
     getPacks: (id?: string) => void
     status: RequestStatusType
@@ -22,7 +22,7 @@ type CardsPacksPropsType = {
     handlePageCountChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
     handleCreatePack: (title: string) => void
     handleDeletePack: (id: string) => void
-    handleEditPack: (payload: PackPayloadType) => void
+    handleEditPack: (payload: PackPayload) => void
     handleSearch: (e: ChangeEvent<HTMLInputElement>) => void
     newPackTitle: string
     setNewPackTitle: (newPackTitle: string) => void
@@ -94,14 +94,14 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({
                                     onClick={() => setVisible(true)}
                                     disabled={status === 'loading'}
                             >Add Pack</Button>
-                            <MyModal visible={visible}
-                                     setVisible={setVisible}
+                            <AddPackModal visible={visible}
+                                          setVisible={setVisible}
                             >
                                 <AddNewItemForm buttonTitle='Create pack'
                                                 onClick={handleCreatePack}
                                                 setVisible={setVisible}
                                 />
-                            </MyModal>
+                            </AddPackModal>
                         </div>
                         <DataTable packs={packs}
                                    userId={user?._id}

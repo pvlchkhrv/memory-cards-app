@@ -1,25 +1,25 @@
-import {GetPacksQueryParamsType, GetPacksResponseType, PackPayloadType} from '../types/packsTypes'
 import {instance} from './instance'
+import {GetPacksQueryParams, GetPacksResponse, PackPayload} from '../store/reducers/packs/types';
 
-const PACKS_URL = 'cards/pack/'
+const PACKS_URL = 'cards/pack/';
 
 const packsAPI = {
-    async getPacks(queryParams: GetPacksQueryParamsType) {
-        const response = await instance.get<GetPacksResponseType>(PACKS_URL, {params: queryParams})
+    async getPacks(queryParams: GetPacksQueryParams) {
+        const response = await instance.get<GetPacksResponse>(PACKS_URL, {params: queryParams})
         return response.data
     },
-    addPack(payload: PackPayloadType) {
+    addPack(payload: PackPayload) {
         return instance.post(PACKS_URL, {cardsPack: payload})
     },
     removePack(id: string) {
-        return instance.delete(PACKS_URL, {params:{id}})
+        return instance.delete(PACKS_URL, {params: {id}})
     },
-    updatePack(payload: PackPayloadType) {
+    updatePack(payload: PackPayload) {
         return instance.put(PACKS_URL, {cardsPack: payload})
     },
-}
+};
 
 export {
     packsAPI,
     PACKS_URL
-}
+};

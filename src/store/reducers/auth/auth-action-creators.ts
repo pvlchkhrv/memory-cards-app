@@ -13,12 +13,14 @@ export const AuthActionCreators = {
         dispatch(AppActionCreators.setAppStatus('loading'));
         try {
             const user = await authAPI.login(payload);
-            localStorage.setItem('user', JSON.stringify(user));
+            // localStorage.setItem('user', JSON.stringify(user));
             dispatch(AuthActionCreators.setUser(user));
             dispatch(AuthActionCreators.setIsAuth(true));
             dispatch(AppActionCreators.setAppStatus('succeed'));
         } catch (e) {
-            return handleError(e);
+            const error = e.response ? e.response.data.error : (e.message + ', more details in console');
+            dispatch(AppActionCreators.setAppError(error));
+            dispatch(AppActionCreators.setAppStatus('failed'));
         }
     },
     logout: () => async (dispatch: AppDispatch) => {
@@ -36,10 +38,16 @@ export const AuthActionCreators = {
     },
     authMe: () => async (dispatch: AppDispatch) => {
         dispatch(AppActionCreators.setAppStatus('loading'));
-        const user = await authAPI.authMe();
-        dispatch(AuthActionCreators.setUser(user));
-        dispatch(AuthActionCreators.setIsAuth(true));
-        dispatch(AppActionCreators.setAppStatus('succeed'));
+        try {
+            const user = await authAPI.authMe();
+            dispatch(AuthActionCreators.setUser(user));
+            dispatch(AuthActionCreators.setIsAuth(true));
+            dispatch(AppActionCreators.setAppStatus('succeed'));
+        } catch (e) {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in console');
+            dispatch(AppActionCreators.setAppError(error));
+            dispatch(AppActionCreators.setAppStatus('failed'));
+        }
     },
     register: (email: string, password: string) => async (dispatch: AppDispatch) => {
         dispatch(AppActionCreators.setAppStatus('loading'));
