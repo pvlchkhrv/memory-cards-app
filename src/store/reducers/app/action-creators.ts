@@ -14,11 +14,17 @@ export const AppActionCreators = {
         dispatch(AppActionCreators.setAppStatus('loading'));
         try {
             const user = await authAPI.authMe();
-            dispatch(AuthActionCreators.setUser(user));
-            dispatch(AppActionCreators.setAppIsInitialized(true));
-            dispatch(AppActionCreators.setAppStatus('succeed'));
-        } catch (e) {
+            if (user) {
+                dispatch(AuthActionCreators.setUser(user));
+                dispatch(AppActionCreators.setAppIsInitialized(true));
+                dispatch(AppActionCreators.setAppStatus('succeed'));
+            } else {
+                dispatch(AppActionCreators.setAppIsInitialized(true));
+                dispatch(AppActionCreators.setAppStatus('succeed'));
+            }
+         } catch (e) {
             const error = e.response ? e.response.data.error : (e.message + ', more details in console');
+            dispatch(AppActionCreators.setAppIsInitialized(true));
             dispatch(AppActionCreators.setAppError(error));
             dispatch(AppActionCreators.setAppStatus('failed'));
         }

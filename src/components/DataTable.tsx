@@ -46,7 +46,7 @@ export const DataTable: React.FC<DataTablePropsType> = ({
                                 </TableCell>
                                 <TableCell align='center'>{pack.cardsCount}</TableCell>
                                 <TableCell align='center'>{formatDate(new Date(pack.updated))}</TableCell>
-                                <TableCell align='center'>{new Date(pack.created).toLocaleString()}</TableCell>
+                                <TableCell align='center'>{formatDate(new Date(pack.created))}</TableCell>
                                 <TableCell align='center'>
                                     {
                                         userId === pack.user_id
