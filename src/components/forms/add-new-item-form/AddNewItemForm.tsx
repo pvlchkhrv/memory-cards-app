@@ -9,11 +9,12 @@ type AddItemPropsType = {
 }
 
 const AddNewItemForm: React.FC<AddItemPropsType> = ({onClick, buttonTitle, setVisible}) => {
-    const [title, setTitle] = useState<string>('')
+    const [title, setTitle] = useState<string>('');
     return (
         <form className={s.form}>
             <TextField onChange={event => setTitle(event.currentTarget.value)}
                        placeholder='Title'
+                       value={title}
             />
             <div className={s.button}>
                 <Button onClick={() => {
@@ -25,6 +26,7 @@ const AddNewItemForm: React.FC<AddItemPropsType> = ({onClick, buttonTitle, setVi
                         variant='outlined'
                         size='medium'
                         className={s.button}
+                        disabled={title.length < 1}
                 >{buttonTitle}</Button>
             </div>
         </form>

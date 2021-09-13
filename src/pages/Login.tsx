@@ -20,7 +20,7 @@ const Login = () => {
     }, []);
 
     if (Object.keys(user).length !== 0) {
-        return <Redirect to={'/packs'}/>
+        return <Redirect to={'/Packs'}/>
     }
 
     return (

@@ -7,7 +7,7 @@ import Profile from '../components/Profile';
 import Packs from '../pages/Packs';
 
 const privateRoutes = [
-    {path: '/packs', component: Packs, exact: true},
+    {path: '/Packs', component: Packs, exact: true},
     {path: '/profile', component: Profile, exact: true},
 ];
 

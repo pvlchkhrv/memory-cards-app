@@ -108,7 +108,6 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
                     </FormGroup>
                     <div className={s.signUpBlock}>
                         <span>Don't have an account? <Link to='/register'>Sign Up!</Link></span>
-
                         <Link to='/restore'>Forgot Password?</Link>
                     </div>
                 </form>

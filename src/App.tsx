@@ -6,9 +6,11 @@ import ErrorBar from './components/common/error-bar/ErrorBar';
 import Navbar from './components/Navbar';
 import {useAppSelector} from './hooks/useAppSelector';
 import {useActions} from './hooks/useActions';
+import {Redirect} from 'react-router';
 
 const App = () => {
     const {isInitialized, status, error} = useAppSelector(state => state.app);
+    const {isAuth} = useAppSelector(state => state.auth);
     const {initializeApp} = useActions();
 
     useEffect(() => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../components/Header'
-import CardPacksContainer from '../components/CardPacksContainer'
+import CardPacksContainer from '../components/Packs/CardPacksContainer'
 
 const Packs = () => {
     return (

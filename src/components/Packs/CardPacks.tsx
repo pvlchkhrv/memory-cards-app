@@ -1,35 +1,36 @@
 import React, {ChangeEvent} from 'react'
 import {Button, Container, Grid, LinearProgress, Paper, TextField} from '@material-ui/core'
 import s from './CardPacks.module.css'
-import {DataTable} from './DataTable'
-import {RequestStatusType} from '../store/reducers/app/types'
-import PaginationBar from './PaginationBar'
-import AddPackModal from './modals/AddPackModal';
-import AddNewItemForm from './forms/add-new-item-form/AddNewItemForm';
-import {IPack} from '../models/IPack';
-import {IUser} from '../models/IUser';
-import {GetPacksQueryParams, PackPayload} from '../store/reducers/packs/types';
+import {DataTable} from '../DataTable'
+import {RequestStatusType} from '../../store/reducers/app/types'
+import PaginationBar from '../PaginationBar'
+import AddPackModal from '../modals/AddPackModal';
+import AddNewItemForm from '../forms/add-new-item-form/AddNewItemForm';
+import {IPack} from '../../models/IPack';
+import {IUser} from '../../models/IUser';
+import {GetPacksQueryParams, PackPayload} from '../../store/reducers/packs/types';
+import {ImageSearch, Search} from '@material-ui/icons';
 
 type CardsPacksPropsType = {
-    packs: IPack []
-    packsTotal: number
-    queryParams: GetPacksQueryParams
-    user: IUser
-    getPacks: (id?: string) => void
-    status: RequestStatusType
-    isMine: boolean
-    handlePageChange: (e: React.ChangeEvent<unknown>, value: number) => void
-    handlePageCountChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
-    handleCreatePack: (title: string) => void
-    handleDeletePack: (id: string) => void
-    handleEditPack: (payload: PackPayload) => void
-    handleSearch: (e: ChangeEvent<HTMLInputElement>) => void
-    newPackTitle: string
-    setNewPackTitle: (newPackTitle: string) => void
-    setIsMine: (isMine: boolean) => void
-    filter: string
-    visible: boolean
-    setVisible: (visible: boolean) => void
+    packs: IPack[];
+    packsTotal: number;
+    queryParams: GetPacksQueryParams;
+    user: IUser;
+    status: RequestStatusType;
+    isMine: boolean;
+    handlePageChange: (e: React.ChangeEvent<unknown>, value: number) => void;
+    handlePageCountChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    handleCreatePack: (title: string) => void;
+    handleDeletePack: (id: string) => void;
+    handleEditPack: (payload: PackPayload) => void;
+    handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+    newPackTitle: string;
+    setNewPackTitle: (newPackTitle: string) => void;
+    setIsMine: (isMine: boolean) => void;
+    filter: string;
+    visible: boolean;
+    setVisible: (visible: boolean) => void;
+    onSearchClick: () => void;
 }
 
 const CardPacks: React.FC<CardsPacksPropsType> = ({
@@ -48,7 +49,8 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({
                                                       packsTotal,
                                                       filter,
                                                       visible,
-                                                      setVisible
+                                                      setVisible,
+                                                      onSearchClick
                                                   }) => {
     return (
         <Container fixed className={s.container}>
@@ -88,6 +90,12 @@ const CardPacks: React.FC<CardsPacksPropsType> = ({
                                        value={filter}
                                        onChange={handleSearch}
                             />
+                            <Button onClick={onSearchClick}
+                                    color='primary'
+                                    variant={'outlined'}
+                                    className={s.searchButton}
+                                    disabled={filter === ''}
+                            ><Search/></Button>
                             <Button variant='contained'
                                     color='primary'
                                     size='large'

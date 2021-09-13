@@ -12,7 +12,7 @@ type AddItemPropsType = {
 }
 
 const EditItemForm: React.FC<AddItemPropsType> = ({onEditClick, buttonTitle, setVisible, name, pack_id}) => {
-    const [title, setTitle] = useState<string>(name)
+    const [title, setTitle] = useState<string>(() => name);
     return (
         <form className={s.form}>
             <TextField onChange={e => setTitle(e.currentTarget.value)}
@@ -22,12 +22,12 @@ const EditItemForm: React.FC<AddItemPropsType> = ({onEditClick, buttonTitle, set
                 <Button onClick={() => {
                     onEditClick({name: title, _id: pack_id})
                     setVisible(false)
-                    setTitle('')
                 }}
                         color='primary'
                         variant='outlined'
                         size='medium'
                         className={s.button}
+                        disabled={title.length < 1}
                 >{buttonTitle}</Button>
             </div>
         </form>

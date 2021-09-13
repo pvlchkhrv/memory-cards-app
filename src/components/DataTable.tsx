@@ -4,26 +4,26 @@ import {PACKS_URL} from '../api/packsAPI'
 import s from './DataTable.module.css'
 import AddPackModal from './modals/AddPackModal';
 import EditItemForm from './forms/edit-item-form/EditItemForm';
-import {useState} from 'react';
+import {FC, useState} from 'react';
 import {IPack} from '../models/IPack';
 import {formatDate} from '../utils/date';
 import {PackPayload} from '../store/reducers/packs/types';
 
 type DataTablePropsType = {
-    packs: IPack []
-    userId?: string
-    onDeleteClick: (id: string) => void
-    onEditClick: (payload: PackPayload) => void
-    visible: boolean
-    setVisible: (visible: boolean) => void
+    packs: IPack[];
+    userId?: string;
+    onDeleteClick: (id: string) => void;
+    onEditClick: (payload: PackPayload) => void;
+    visible: boolean;
+    setVisible: (visible: boolean) => void;
 }
 
-export const DataTable: React.FC<DataTablePropsType> = ({
-                                                            packs,
-                                                            userId,
-                                                            onDeleteClick,
-                                                            onEditClick,
-                                                        }) => {
+export const DataTable: FC<DataTablePropsType> = ({
+                                                      packs,
+                                                      userId,
+                                                      onDeleteClick,
+                                                      onEditClick,
+                                                  }) => {
     const [modal, setModal] = useState<boolean>(false)
     return (
         <div>
@@ -54,12 +54,12 @@ export const DataTable: React.FC<DataTablePropsType> = ({
                                                 <Button onClick={() => onDeleteClick(pack._id)}>Delete</Button>
                                                 <Button onClick={() => setModal(true)}>Edit</Button>
                                                 <AddPackModal visible={modal} setVisible={setModal}>
-                                                     <EditItemForm onEditClick={onEditClick}
-                                                                   buttonTitle='Edit pack'
-                                                                   setVisible={setModal}
-                                                                   pack_id={pack._id}
-                                                                   name={pack.name}
-                                                     />
+                                                    <EditItemForm onEditClick={onEditClick}
+                                                                  buttonTitle='Update pack'
+                                                                  setVisible={setModal}
+                                                                  pack_id={pack._id}
+                                                                  name={pack.name}
+                                                    />
                                                 </AddPackModal>
                                                 <Button onClick={() => {
                                                 }}>Learn</Button>

@@ -39,7 +39,7 @@ beforeEach(() => {
 });
 
 describe('check if packsReducer implements correctly', () => {
-    it('packs array should be set', () => {
+    it('Packs array should be set', () => {
         const packs = generatePacks()
         const output = packsReducer(startState, PacksActionCreators.setPacks(packs));
         expect(output.packs[0]._id).toBe('0')
@@ -54,7 +54,7 @@ describe('check if packsReducer implements correctly', () => {
         const output = packsReducer(startState, PacksActionCreators.setPageCount(10))
         expect(output.pageCount).toBe(10)
     })
-    it('total packs count should be changed', () => {
+    it('total Packs count should be changed', () => {
         const output = packsReducer(startState, PacksActionCreators.setCardPacksTotalCount(100))
         expect(output.cardPacksTotalCount).toBe(100)
     })

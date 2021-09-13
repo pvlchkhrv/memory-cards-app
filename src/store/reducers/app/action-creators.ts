@@ -17,6 +17,7 @@ export const AppActionCreators = {
             if (user) {
                 dispatch(AuthActionCreators.setUser(user));
                 dispatch(AppActionCreators.setAppIsInitialized(true));
+                dispatch(AuthActionCreators.setIsAuth(true));
                 dispatch(AppActionCreators.setAppStatus('succeed'));
             } else {
                 dispatch(AppActionCreators.setAppIsInitialized(true));
