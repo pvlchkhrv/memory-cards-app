@@ -3,11 +3,9 @@ import s from './Header.module.css'
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted'
 import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt'
 import {Button} from '@material-ui/core';
-import {useDispatch} from 'react-redux';
-import {useActions} from '../hooks/useActions';
+import {useActions} from '../../hooks/useActions';
 
 const Header = () => {
-    const dispatch = useDispatch()
     const {logout} = useActions();
 
     return (

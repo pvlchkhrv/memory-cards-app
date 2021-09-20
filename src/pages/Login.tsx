@@ -2,9 +2,9 @@ import React, {useEffect} from 'react';
 import {LoginForm} from '../components/forms/login/LoginForm';
 import {Redirect} from 'react-router';
 import {LoginPayload} from '../store/reducers/auth/types';
-import {useDispatch} from 'react-redux';
 import {useAppSelector} from '../hooks/useAppSelector';
 import {useActions} from '../hooks/useActions';
+import {RouteNames} from '../router';
 
 
 const Login = () => {
@@ -19,9 +19,9 @@ const Login = () => {
         authMe();
     }, []);
 
-    if (Object.keys(user).length !== 0) {
-        return <Redirect to={'/Packs'}/>
-    }
+    // if (Object.keys(user).length !== 0) {
+    //     return <Redirect to={RouteNames.PACKS}/>
+    // }
 
     return (
         <LoginForm onSubmitHandler={onSubmitHandler}

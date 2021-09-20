@@ -1,15 +1,6 @@
 import React, {useState} from 'react';
 import {useFormik} from 'formik';
-import {
-    Button,
-    Checkbox,
-    FormControlLabel,
-    FormGroup,
-    FormLabel,
-    LinearProgress,
-    Paper,
-    TextField
-} from '@material-ui/core';
+import {Button, Checkbox, FormControlLabel, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import s from './LoginForm.module.css';
 import {Link} from 'react-router-dom';
@@ -57,7 +48,6 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
     const [visible, setVisible]  = useState<boolean>(false);
 
     return (
-        <div>
             <Paper elevation={3} className={s.paper}>
                 <form className={s.form} onSubmit={formik.handleSubmit}>
                     <FormLabel>
@@ -111,10 +101,7 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
                         <Link to='/restore'>Forgot Password?</Link>
                     </div>
                 </form>
-
             </Paper>
-            {status === 'loading' && <LinearProgress/>}
-        </div>
     );
 };
 

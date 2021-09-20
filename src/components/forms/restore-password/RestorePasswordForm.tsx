@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useFormik} from 'formik'
-import {Button, FormGroup, FormLabel, LinearProgress, Paper, TextField} from '@material-ui/core'
+import {Button, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core'
 import s from './RestorePassword.module.css'
 import CheckEmail from './CheckEmail'
 import {useHistory} from 'react-router'
@@ -74,7 +74,6 @@ const RestorePasswordForm: React.FC = () => {
                     </FormGroup>
                 </form>
             </Paper>
-            {status === 'loading' && <LinearProgress/>}
         </div>
     )
 }

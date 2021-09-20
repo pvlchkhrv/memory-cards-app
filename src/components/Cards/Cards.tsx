@@ -1,18 +1,48 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Container, Paper, TextField} from '@material-ui/core';
-import s from '../components/Packs/CardPacks.module.css';
+import s from '../Packs/Packs.module.css';
 import {Search} from '@material-ui/icons';
-import Modal from '../components/modals/Modal';
-import AddNewItemForm from '../components/forms/add-new-item-form/AddNewItemForm';
-import {useAppSelector} from '../hooks/useAppSelector';
+import Modal from '../modals/Modal';
+import AddNewItemForm from '../forms/add-new-item-form/AddNewItemForm';
+import {useAppSelector} from '../../hooks/useAppSelector';
+import {useActions} from '../../hooks/useActions';
+import {useParams} from 'react-router';
+import CardTable from './CardTable';
 
 const Cards = () => {
-    const {cardsTotalCount} = useAppSelector(state => state.cards);
+    const [filter, setFilter] = useState<string>('');
+    const {cardsTotalCount, cards} = useAppSelector(state => state.cards);
+    const {packs} = useAppSelector(state => state.packs);
+    const {status} = useAppSelector(state => state.app);
+    const {isAuth} = useAppSelector(state => state.auth);
+    const {fetchCards, addCard, authMe} = useActions();
+    const {id} = useParams<{ id: string }>();
+    let packName;
+    packs.forEach(p => {
+        if (p._id === id) {
+            packName = p.name
+        }
+    })
+
+    const onSearchClick = () => {
+        fetchCards({cardsPack_id: id});
+    };
+    const handleCreateCard = async (title: string) => {
+        await addCard({cardsPack_id: id});
+        fetchCards({cardsPack_id: id});
+    };
+
+    useEffect(() => {
+        if (!isAuth) {
+            authMe();
+        }
+        fetchCards({cardsPack_id: id});
+    },[])
 
     return (
         <Container>
             <Paper>
-                <h3>Cards List ({cardsTotalCount})</h3>
+                <h3>{`${packName} (${cardsTotalCount})`}</h3>
                 <div className={s.searchBar}>
                     <TextField id='standard-search'
                                label='Search'
@@ -20,7 +50,7 @@ const Cards = () => {
                                variant='outlined'
                                size='small'
                                value={filter}
-                               onChange={handleSearch}
+                               onChange={e => setFilter(e.currentTarget.value)}
                     />
                     <Button onClick={onSearchClick}
                             color='primary'
@@ -30,18 +60,22 @@ const Cards = () => {
                     <Button variant='contained'
                             color='primary'
                             size='large'
-                            onClick={() => setVisible(true)}
+                            onClick={() => {
+                            }}
                             disabled={status === 'loading'}
                     >Add Pack</Button>
-                    <Modal visible={visible}
-                           setVisible={setVisible}
+                    <Modal visible={false}
+                           setVisible={() => {
+                           }}
                     >
-                        <AddNewItemForm buttonTitle='Create pack'
-                                        onClick={handleCreatePack}
-                                        setVisible={setVisible}
+                        <AddNewItemForm buttonTitle='Create card'
+                                        onClick={handleCreateCard}
+                                        setVisible={() => {
+                                        }}
                         />
                     </Modal>
                 </div>
+                <CardTable cards={cards}/>
             </Paper>
         </Container>
     );

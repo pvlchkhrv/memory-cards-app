@@ -1,4 +1,4 @@
-import {ICard} from '../../../models/IСard';
+
 import {AppActionCreators} from '../app/action-creators';
 import {AppDispatch} from '../../index';
 import {
@@ -11,6 +11,7 @@ import {
     SetCardsTotalCount
 } from './types';
 import {cardsAPI} from '../../../api/cardsAPI';
+import {ICard} from '../../../models/ICard';
 
 export const CardsActionCreators = {
     setCards: (payload: ICard[]): SetCards => ({type: CardsActions.SET_CARDS, payload}),
@@ -42,7 +43,7 @@ export const CardsActionCreators = {
             dispatch(AppActionCreators.setAppStatus('failed'));
         }
     },
-    updatePack: (payload: CardPayload) => async (dispatch: AppDispatch) => {
+    updateCard: (payload: CardPayload) => async (dispatch: AppDispatch) => {
         dispatch(AppActionCreators.setAppStatus('loading'));
         try {
             await cardsAPI.updateCard(payload);
@@ -53,7 +54,7 @@ export const CardsActionCreators = {
             dispatch(AppActionCreators.setAppStatus('failed'));
         }
     },
-    removePack: (id: string) => async (dispatch: AppDispatch) => {
+    removeCard: (id: string) => async (dispatch: AppDispatch) => {
         dispatch(AppActionCreators.setAppStatus('loading'));
         try {
             await cardsAPI.removeCard(id);

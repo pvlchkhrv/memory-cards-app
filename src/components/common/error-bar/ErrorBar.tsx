@@ -18,7 +18,7 @@ const ErrorBar = () => {
     const isOpen = error !== null;
 
     return (
-        <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
+        <Snackbar open={isOpen} autoHideDuration={4000} onClose={handleClose}>
             <Alert variant='outlined' severity='error'>
                 {error}
             </Alert>

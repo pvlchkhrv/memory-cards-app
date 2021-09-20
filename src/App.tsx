@@ -1,16 +1,14 @@
 import React, {useEffect} from 'react';
 import AppRouter from './components/AppRouter';
 import './styles/App.css';
-import {CircularProgress, LinearProgress} from '@material-ui/core';
+import {CircularProgress, Container, LinearProgress} from '@material-ui/core';
 import ErrorBar from './components/common/error-bar/ErrorBar';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import {useAppSelector} from './hooks/useAppSelector';
 import {useActions} from './hooks/useActions';
-import {Redirect} from 'react-router';
 
 const App = () => {
     const {isInitialized, status, error} = useAppSelector(state => state.app);
-    const {isAuth} = useAppSelector(state => state.auth);
     const {initializeApp} = useActions();
 
     useEffect(() => {
@@ -26,9 +24,12 @@ const App = () => {
     return (
         <div className='app'>
             <Navbar/>
-            {status === 'loading' && <CircularProgress/>}
-            <AppRouter/>
-            {error && <ErrorBar/>}
+            {status === 'loading' && <LinearProgress/>}
+            <Container fixed className='container'>
+                <AppRouter/>
+                {error && <ErrorBar/>}
+            </Container>
+
         </div>
     );
 };

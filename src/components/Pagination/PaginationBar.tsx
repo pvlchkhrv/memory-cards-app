@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from 'react'
 import {Pagination} from '@material-ui/lab'
-import MySelect from './common/select/MySelect'
+import MySelect from '../common/select/MySelect'
 import s from './PaginationBar.module.css'
-import {RequestStatusType} from '../store/reducers/app/types';
+import {RequestStatusType} from '../../store/reducers/app/types';
 
 type PaginationBarPropsType = {
     page?: number

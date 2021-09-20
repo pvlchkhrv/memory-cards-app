@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
-import s from './AddPackModal.module.css'
+import s from './Modal.module.css'
 type MyModalPropsType = {
     visible: boolean;
     setVisible: (visible: boolean) => void;
 }
 
-const AddPackModal: FC<MyModalPropsType> = ({children, visible, setVisible}) => {
+const Modal: FC<MyModalPropsType> = ({children, visible, setVisible}) => {
     const rootClasses = [s.myModal];
     if (visible) {
         rootClasses.push(s.active)
@@ -22,4 +22,4 @@ const AddPackModal: FC<MyModalPropsType> = ({children, visible, setVisible}) => 
     );
 };
 
-export default AddPackModal;
+export default Modal;

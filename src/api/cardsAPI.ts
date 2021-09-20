@@ -1,7 +1,7 @@
 import {instance} from './instance'
 import {CardPayload, CardsState, GetCardsQueryParams} from '../store/reducers/cards/types';
 
-const CARDS_URL = 'cards/card/';
+const CARDS_URL = 'cards/card';
 
 const cardsAPI = {
     async getCards(queryParams: GetCardsQueryParams) {
@@ -17,6 +17,9 @@ const cardsAPI = {
     updateCard(payload: CardPayload) {
         return instance.put(CARDS_URL, {card: payload});
     },
+    estimateCard(payload: {card_id: string, grade: number}) {
+        return instance.put('cards/grade/', payload)
+    }
 };
 
 export {

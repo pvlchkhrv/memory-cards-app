@@ -27,8 +27,8 @@ export const AuthActionCreators = {
         try {
             dispatch(AppActionCreators.setAppStatus('loading'));
             await authAPI.logout();
-            localStorage.removeItem('auth');
-            localStorage.removeItem('user');
+            // localStorage.removeItem('auth');
+            // localStorage.removeItem('user');
             dispatch(AuthActionCreators.setUser({} as IUser));
             dispatch(AuthActionCreators.setIsAuth(false));
             dispatch(AppActionCreators.setAppStatus('succeed'));
@@ -72,6 +72,4 @@ export const AuthActionCreators = {
             dispatch(AppActionCreators.setAppStatus('failed'));
         }
     },
-
-
 };

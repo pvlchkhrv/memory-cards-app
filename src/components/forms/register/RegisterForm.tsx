@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useFormik} from 'formik';
-import {Button, FormGroup, FormLabel, LinearProgress, Paper, TextField} from '@material-ui/core';
+import {Button, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core';
 import s from './RegisterForm.module.css'
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import {useHistory} from 'react-router';
@@ -117,7 +117,6 @@ const RegisterForm: React.FC = () => {
                     </FormGroup>
                 </form>
             </Paper>
-            {status === 'loading' && <LinearProgress/>}
         </div>
     )
 }

@@ -1,11 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import CardPacks from './CardPacks';
+import Packs from './Packs';
 import {Redirect} from 'react-router';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useActions} from '../../hooks/useActions';
 import {PackPayload} from '../../store/reducers/packs/types';
+import {RouteNames} from '../../router';
 
-const CardPacksContainer = () => {
+const PacksContainer = () => {
     const [isMine, setIsMine] = useState(false);
     const [newPackTitle, setNewPackTitle] = useState<string>('');
     const [visible, setVisible] = useState<boolean>(false);
@@ -51,30 +52,28 @@ const CardPacksContainer = () => {
         getPacks(isMine, user._id, filter);
     }, [page, isMine, pageCount]);
 
-    if (!isAuth) return <Redirect to={'/login'}/>
-
     return (
-        <CardPacks packs={packs}
-                   packsTotal={cardPacksTotalCount}
-                   queryParams={queryParams}
-                   user={user}
-                   status={status}
-                   isMine={isMine}
-                   handlePageChange={handlePageChange}
-                   handlePageCountChange={handlePageCountChange}
-                   handleSearch={handleSearch}
-                   onSearchClick={handleOnSearchClick}
-                   handleCreatePack={handleCreatePack}
-                   handleEditPack={handleEditPack}
-                   handleDeletePack={handleDeletePack}
-                   newPackTitle={newPackTitle}
-                   setNewPackTitle={setNewPackTitle}
-                   setIsMine={setIsMine}
-                   filter={filter}
-                   visible={visible}
-                   setVisible={setVisible}
+        <Packs packs={packs}
+               packsTotal={cardPacksTotalCount}
+               queryParams={queryParams}
+               user={user}
+               status={status}
+               isMine={isMine}
+               handlePageChange={handlePageChange}
+               handlePageCountChange={handlePageCountChange}
+               handleSearch={handleSearch}
+               onSearchClick={handleOnSearchClick}
+               handleCreatePack={handleCreatePack}
+               handleEditPack={handleEditPack}
+               handleDeletePack={handleDeletePack}
+               newPackTitle={newPackTitle}
+               setNewPackTitle={setNewPackTitle}
+               setIsMine={setIsMine}
+               filter={filter}
+               visible={visible}
+               setVisible={setVisible}
         />
     )
 }
 
-export default CardPacksContainer;
+export default PacksContainer;

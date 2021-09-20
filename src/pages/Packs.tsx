@@ -1,11 +1,10 @@
 import React from 'react'
-import Header from '../components/Header'
-import CardPacksContainer from '../components/Packs/CardPacksContainer'
+import PacksContainer from '../components/Packs/PacksContainer'
 
 const Packs = () => {
     return (
         <div className='packsPage'>
-            <CardPacksContainer/>
+            <PacksContainer/>
         </div>
     )
 }

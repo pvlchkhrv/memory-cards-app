@@ -1,4 +1,5 @@
-import {ICard} from '../../../models/IСard';
+import {ICard} from '../../../models/ICard';
+
 
 interface CardsState {
     cards: ICard[];
@@ -28,11 +29,11 @@ interface CardPayload {
     grade?: number;
     shots?: number;
     rating?: number;
-    answerImg: string;
-    questionImg: string;
-    questionVideo: string;
-    answerVideo: string;
-    type: string;
+    answerImg?: string;
+    questionImg?: string;
+    questionVideo?: string;
+    answerVideo?: string;
+    type?: string;
 }
 
 export enum CardsActions {
