@@ -1,10 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import Packs from './Packs';
-import {Redirect} from 'react-router';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {useActions} from '../../hooks/useActions';
 import {PackPayload} from '../../store/reducers/packs/types';
-import {RouteNames} from '../../router';
 
 const PacksContainer = () => {
     const [isMine, setIsMine] = useState(false);
@@ -13,7 +11,7 @@ const PacksContainer = () => {
     const [filter, setFilter] = useState<string>('');
 
     const status = useAppSelector(state => state.app.status);
-    const {user, isAuth} = useAppSelector(state => state.auth);
+    const {user} = useAppSelector(state => state.auth);
     const {packs, cardPacksTotalCount, page, pageCount, maxCardsCount, minCardsCount} =
         useAppSelector(state => state.packs);
     const queryParams = {page, pageCount, maxCardsCount, minCardsCount};
