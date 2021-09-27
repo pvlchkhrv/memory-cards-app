@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core';
-import s from '../Packs/PacksTable.module.css';
+import {Button, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
+import s from '../Packs/PacksList/PacksList.module.css'
 import {NavLink} from 'react-router-dom';
 import {RouteNames} from '../../router';
 import {formatDate} from '../../utils/date';
@@ -13,7 +13,6 @@ type CardTablePropsType = {
 const CardTable: FC<CardTablePropsType> = ({cards}) => {
 
     return (
-        <TableContainer component={Paper}>
             <Table aria-label='card table'>
                 <TableHead className={s.tableHead}>
                     <TableRow>
@@ -44,7 +43,6 @@ const CardTable: FC<CardTablePropsType> = ({cards}) => {
                     ))}
                 </TableBody>
             </Table>
-        </TableContainer>
     );
 };
 

@@ -1,4 +1,4 @@
-import {AppBar, Button, Toolbar, Typography} from '@material-ui/core';
+import {AppBar, Button, LinearProgress, Toolbar, Typography} from '@material-ui/core';
 import React from 'react';
 import s from './Navbar.module.css'
 import {useAppSelector} from '../../hooks/useAppSelector';
@@ -9,20 +9,24 @@ const Navbar = () => {
     const {status} = useAppSelector(state => state.app);
     const {logout} = useActions();
     return (
-        <AppBar position='static'>
-            <Toolbar className={s.toolbar}>
-                <Typography variant='h6' className={s.text}>
-                    Learn whatever you need using spaced-repetition technique...
-                </Typography>
-                {
-                    isAuth &&
-                    <Button color='inherit'
-                            onClick={() => logout()}
-                            disabled={status === 'loading'}
-                    >Sign Out</Button>
-                }
-            </Toolbar>
-        </AppBar>
+        <>
+            <AppBar position='static' className={s.appbar}>
+                <Toolbar className={s.toolbar}>
+                    <Typography variant='h6' className={s.text}>
+                        Learn whatever you need using spaced-repetition technique...
+                    </Typography>
+                    {
+                        isAuth &&
+                        <Button color='inherit'
+                                onClick={() => logout()}
+                                disabled={status === 'loading'}
+                        >Sign Out</Button>
+                    }
+                </Toolbar>
+            </AppBar>
+            {status === 'loading' && <LinearProgress/>}
+        </>
+
     );
 };
 

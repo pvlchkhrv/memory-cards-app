@@ -1,11 +1,9 @@
 import React from 'react';
-import {Paper} from '@material-ui/core';
+import ProfileInfo from '../components/Profile/ProfileInfo';
 
 const Profile = () => {
     return (
-        <Paper>
-
-        </Paper>
+           <ProfileInfo/>
     );
 };
 

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Container, Paper, TextField} from '@material-ui/core';
-import s from '../Packs/Packs.module.css';
+import s from '../Packs/PacksList/PacksList.module.css'
 import {Search} from '@material-ui/icons';
 import Modal from '../modals/Modal';
 import AddNewItemForm from '../forms/add-new-item-form/AddNewItemForm';
@@ -45,7 +45,7 @@ const Cards = () => {
                 <h3>{`${packName} (${cardsTotalCount})`}</h3>
                 <div className={s.searchBar}>
                     <TextField id='standard-search'
-                               label='Search'
+                               label='SearchBar'
                                type='search'
                                variant='outlined'
                                size='small'

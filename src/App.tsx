@@ -21,15 +21,14 @@ const App = () => {
             <CircularProgress/>
         </div>
     }
+
     return (
         <div className='app'>
             <Navbar/>
-            {status === 'loading' && <LinearProgress/>}
             <Container fixed className='container'>
                 <AppRouter/>
                 {error && <ErrorBar/>}
             </Container>
-
         </div>
     );
 };

@@ -1,14 +1,19 @@
 .app {
     font-family: "Comic Sans MS", sans-serif;
-    width: 100vw;
-    height: 100vh;
     background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
     color: #2D2E46;
-
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .container {
-    margin-top: 30px;
+    background-color: chocolate;
+    padding: 25px;
+    margin: 30px;
+    overflow-y: auto;
+    min-width: 400px;
 }
 .linear-progress {
     margin-top: 60px;

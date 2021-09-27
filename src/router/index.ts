@@ -3,7 +3,7 @@ import Register from '../pages/Register';
 import RestorePassword from '../pages/RestorePassword';
 import Error404 from '../pages/Error404';
 import SetPassword from '../pages/SetPassword';
-import Profile from '../components/Profile/Profile';
+import Profile from '../components/Profile/ProfileInfo';
 import Packs from '../pages/Packs';
 import Cards from '../components/Cards/Cards';
 import {ComponentType} from 'react';
