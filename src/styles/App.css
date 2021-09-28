@@ -8,13 +8,6 @@
     position: relative;
 }
 
-.container {
-    background-color: chocolate;
-    padding: 25px;
-    margin: 30px;
-    overflow-y: auto;
-    min-width: 400px;
-}
 .linear-progress {
     margin-top: 60px;
 }

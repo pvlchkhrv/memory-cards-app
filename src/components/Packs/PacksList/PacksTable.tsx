@@ -51,8 +51,7 @@ export const PacksTable: FC<PackTablePropsType> = ({
                             {
                                 userId === pack.user_id
                                     ? <div>
-                                        <Button onClick={() => {
-                                        }}
+                                        <Button onClick={()=> history.push('/learn/' + pack._id)}
                                         >Learn</Button>
                                         <Button onClick={() => setModal(true)}>Edit</Button>
                                         <Modal visible={modal} setVisible={setModal}>

@@ -1,10 +1,8 @@
 import React, {useEffect} from 'react';
 import {LoginForm} from '../components/forms/login/LoginForm';
-import {Redirect} from 'react-router';
 import {LoginPayload} from '../store/reducers/auth/types';
 import {useAppSelector} from '../hooks/useAppSelector';
 import {useActions} from '../hooks/useActions';
-import {RouteNames} from '../router';
 
 
 const Login = () => {
@@ -15,9 +13,9 @@ const Login = () => {
         login(payload);
     };
 
-    useEffect(() => {
-        authMe();
-    }, []);
+    // useEffect(() => {
+    //     authMe();
+    // }, []);
 
     // if (Object.keys(user).length !== 0) {
     //     return <Redirect to={RouteNames.PACKS}/>

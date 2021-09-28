@@ -25,7 +25,7 @@ const App = () => {
     return (
         <div className='app'>
             <Navbar/>
-            <Container fixed className='container'>
+            <Container className='container'>
                 <AppRouter/>
                 {error && <ErrorBar/>}
             </Container>

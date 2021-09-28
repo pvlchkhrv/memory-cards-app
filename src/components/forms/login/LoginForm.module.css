@@ -1,5 +1,4 @@
 .paper {
-    background: hsla(240, 71%, 99%, 1);
     height: 600px;
     width: 413px;
     border-radius: 8px;
@@ -42,9 +41,9 @@
     height: 15%;
 }
 
-.icon {
-    position: absolute;
-    left: 76%;
-    bottom: 50%;
-    cursor: pointer;
-}
+/*.icon {*/
+/*    position: absolute;*/
+/*    left: 76%;*/
+/*    bottom: 50%;*/
+/*    cursor: pointer;*/
+/*}*/
