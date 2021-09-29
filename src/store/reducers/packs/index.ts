@@ -8,6 +8,7 @@ const initState: PacksState = {
     page: 1,
     pageCount: 10,
     filter: '',
+    isMine: false
 }
 
 const packsReducer = (state = initState, action: PacksAction): PacksState => {
@@ -20,6 +21,8 @@ const packsReducer = (state = initState, action: PacksAction): PacksState => {
             return {...state, page: action.payload};
         case PacksActions.SET_PACKS_TOTAL_COUNT:
             return {...state, cardPacksTotalCount: action.payload};
+        case PacksActions.SET_IS_MINE:
+            return {...state, isMine: action.payload};
         default:
             return state;
     }

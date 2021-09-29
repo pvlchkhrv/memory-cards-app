@@ -1,4 +1,4 @@
-import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
+import {Button, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core'
 import {NavLink} from 'react-router-dom'
 import s from './PacksTable.module.css'
 import {useHistory} from 'react-router';
@@ -15,8 +15,6 @@ type PackTablePropsType = {
     userId?: string;
     onDeleteClick: (id: string) => void;
     onEditClick: (payload: PackPayload) => void;
-    visible: boolean;
-    setVisible: (visible: boolean) => void;
 }
 
 export const PacksTable: FC<PackTablePropsType> = ({
@@ -25,19 +23,28 @@ export const PacksTable: FC<PackTablePropsType> = ({
                                                        onDeleteClick,
                                                        onEditClick,
                                                    }) => {
+    const columnTitles = [
+        {id: 1, title: 'Pack name'},
+        {id: 2, title: 'Cards'},
+        {id: 3, title: "Last updated"},
+        {id: 4, title: "Created"},
+        {id: 5, title: "Actions"}
+    ]
     const [modal, setModal] = useState<boolean>(false);
     const history = useHistory();
     return (
-        <Table aria-label='simple table'>
+        <Table >
             <TableHead className={s.tableHead}>
                 <TableRow>
-                    <TableCell>Title</TableCell>
-                    <TableCell align='center'>Cards</TableCell>
-                    <TableCell align='center'>Updated</TableCell>
-                    <TableCell align='center'>Created</TableCell>
-                    <TableCell align='center'>Actions</TableCell>
+                    {columnTitles.map(t => {
+                        if (t.title === 'Pack name') {
+                            return <TableCell key={t.id}>{t.title}</TableCell>
+                        }
+                        return <TableCell key={t.id} align='center'>{t.title}</TableCell>
+                    })}
                 </TableRow>
             </TableHead>
+            {!packs.length && <div className={s.noPacksMessage}>No packs has been found...</div>}
             <TableBody>
                 {packs.map((pack) => (
                     <TableRow key={pack._id}>
@@ -51,9 +58,9 @@ export const PacksTable: FC<PackTablePropsType> = ({
                             {
                                 userId === pack.user_id
                                     ? <div>
+                                        <Button onClick={() => setModal(true)}>Edit</Button>
                                         <Button onClick={()=> history.push('/learn/' + pack._id)}
                                         >Learn</Button>
-                                        <Button onClick={() => setModal(true)}>Edit</Button>
                                         <Modal visible={modal} setVisible={setModal}>
                                             <EditItemForm onEditClick={onEditClick}
                                                           buttonTitle='Update pack'

@@ -5,8 +5,9 @@ import {useAppSelector} from '../../hooks/useAppSelector';
 import {useActions} from '../../hooks/useActions';
 
 const Navbar = () => {
-    const {isAuth} = useAppSelector(state => state.auth);
-    const {status} = useAppSelector(state => state.app);
+    console.log('NAVBAR')
+    const isAuth = useAppSelector(state => state.auth.isAuth);
+    const status = useAppSelector(state => state.app.status);
     const {logout} = useActions();
     return (
         <>
@@ -26,7 +27,6 @@ const Navbar = () => {
             </AppBar>
             {status === 'loading' && <LinearProgress/>}
         </>
-
     );
 };
 

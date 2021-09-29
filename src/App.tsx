@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react';
 import AppRouter from './components/AppRouter';
 import './styles/App.css';
-import {CircularProgress, Container, LinearProgress} from '@material-ui/core';
+import {CircularProgress, Container} from '@material-ui/core';
 import ErrorBar from './components/common/error-bar/ErrorBar';
 import Navbar from './components/Navbar/Navbar';
 import {useAppSelector} from './hooks/useAppSelector';
 import {useActions} from './hooks/useActions';
 
 const App = () => {
-    const {isInitialized, status, error} = useAppSelector(state => state.app);
+    console.log('APP')
+    const error = useAppSelector(state => state.app.error)
+    const isInitialized = useAppSelector(state => state.app.isInitialized)
     const {initializeApp} = useActions();
 
     useEffect(() => {

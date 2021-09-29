@@ -1,4 +1,4 @@
-import {AppAction, AppActionEnum, AppState} from './types';
+    import {AppAction, AppActionEnum, AppState} from './types';
 
 const initialState: AppState = {
     isInitialized: false,

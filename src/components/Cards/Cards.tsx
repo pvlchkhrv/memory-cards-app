@@ -12,9 +12,9 @@ import CardTable from './CardTable';
 const Cards = () => {
     const [filter, setFilter] = useState<string>('');
     const {cardsTotalCount, cards} = useAppSelector(state => state.cards);
-    const {packs} = useAppSelector(state => state.packs);
-    const {status} = useAppSelector(state => state.app);
-    const {isAuth} = useAppSelector(state => state.auth);
+    const packs = useAppSelector(state => state.packs.packs);
+    const status = useAppSelector(state => state.app.status);
+    const isAuth = useAppSelector(state => state.auth);
     const {fetchCards, addCard, authMe} = useActions();
     const {id} = useParams<{ id: string }>();
     let packName;

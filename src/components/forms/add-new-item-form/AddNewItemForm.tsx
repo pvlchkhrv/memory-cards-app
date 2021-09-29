@@ -16,21 +16,17 @@ const AddNewItemForm: React.FC<AddItemPropsType> = ({onClick, buttonTitle, setVi
                        placeholder='Title'
                        value={title}
             />
-            <div className={s.button}>
-                <Button onClick={() => {
-                    onClick(title)
-                    setVisible(false)
-                    setTitle('')
-                }}
-                        color='primary'
-                        variant='outlined'
-                        size='medium'
-                        className={s.button}
-                        disabled={title.length < 1}
-                >{buttonTitle}</Button>
-            </div>
+            <Button onClick={() => {
+                onClick(title)
+                setVisible(false)
+                setTitle('')
+            }}
+                    color='primary'
+                    variant='contained'
+                    disabled={title.length < 1}
+            >{buttonTitle}</Button>
         </form>
     )
 }
 
-export default AddNewItemForm;
+    export default AddNewItemForm;

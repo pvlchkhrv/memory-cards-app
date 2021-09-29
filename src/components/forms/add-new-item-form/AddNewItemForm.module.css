@@ -10,10 +10,6 @@
 .form input{
     width: 100%;
 }
-.button {
+.form button {
     width: 150px;
-}
-
-.button button {
-    width: 100%;
 }

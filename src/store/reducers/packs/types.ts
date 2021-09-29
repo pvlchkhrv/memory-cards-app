@@ -8,6 +8,7 @@ interface PacksState {
     page: number;
     pageCount: number;
     filter: string;
+    isMine: boolean;
 }
 
 interface GetPacksResponse {
@@ -47,6 +48,7 @@ export enum PacksActions {
     SET_PAGE = 'SET_PAGE',
     SET_PACKS_TOTAL_COUNT = 'SET_PACKS_TOTAL_COUNT',
     FILTER_PACKS = 'FILTER_PACKS',
+    SET_IS_MINE = 'SET_IS_MINE'
 }
 
 interface SetPacks {
@@ -69,12 +71,18 @@ interface SetPacksTotalCount {
     payload: number;
 }
 
+interface SetIsMine {
+    type: PacksActions.SET_IS_MINE;
+    payload: boolean;
+}
+
 
 type PacksAction =
     | SetPacks
     | SetPageCount
     | SetPage
     | SetPacksTotalCount
+    | SetIsMine
 
 export type {
     PacksState,
@@ -85,5 +93,6 @@ export type {
     SetPageCount,
     SetPage,
     SetPacksTotalCount,
-    PacksAction
+    PacksAction,
+    SetIsMine
 }

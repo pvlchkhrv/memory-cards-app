@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {ChangeEvent, FC, useState} from 'react';
 import s from '../Packs/PacksList/PacksList.module.css';
 import {Button, TextField} from '@material-ui/core';
 import Modal from '../modals/Modal';
@@ -8,41 +8,34 @@ import {Search} from '@material-ui/icons';
 
 type SearchProps = {
     filter: string;
-    visible: boolean;
-    setVisible: (visible: boolean) => void;
     onSearchClick: () => void;
     handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
     handleCreatePack: (title: string) => void;
 }
 
 export const SearchBar: FC<SearchProps> = ({
-                                            filter,
-                                            onSearchClick,
-                                            setVisible,
-                                            visible,
-                                            handleSearch,
-                                            handleCreatePack
-                                        }) => {
-
+                                               filter,
+                                               onSearchClick,
+                                               handleSearch,
+                                               handleCreatePack
+                                           }) => {
+    const [visible, setVisible] = useState<boolean>(false);
     const status = useAppSelector(state => state.app.status);
     return (
         <div className={s.searchBar}>
-            <TextField id='standard-search'
-                       label='SearchBar'
-                       type='search'
-                       variant='outlined'
-                       size='small'
-                       value={filter}
-                       onChange={handleSearch}
-            />
-            <Button onClick={onSearchClick}
-                    color='primary'
-                    variant={'outlined'}
-                    className={s.searchButton}
-            ><Search/></Button>
-            <Button variant='contained'
-                    color='primary'
-                    size='large'
+            <div>
+                <TextField id='standard-search'
+                           label='Pack title...'
+                           type='search'
+                           size='small'
+                           value={filter}
+                           onChange={handleSearch}
+                />
+                <Button onClick={onSearchClick}
+                        color='primary'
+                ><Search/></Button>
+            </div>
+            <Button color='primary'
                     onClick={() => setVisible(true)}
                     disabled={status === 'loading'}
             >Add Pack</Button>

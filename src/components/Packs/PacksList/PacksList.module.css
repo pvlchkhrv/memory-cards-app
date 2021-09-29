@@ -1,27 +1,22 @@
 .packList {
-    padding: 20px;
+    padding-left: 10px;
     background-color: #FEFEFF;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    min-height: 600px;
 }
 
 .searchBar {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
-
+    margin: 10px 0;
 }
 
 .searchBar input {
     width: 480px;
 }
 
-.searchBar button {
-    width: 150px;
-}
-
-.searchButton {
-
+.searchBar div button {
+    margin-top: 10px;
 }

@@ -17,21 +17,20 @@ const EditItemForm: React.FC<AddItemPropsType> = ({onEditClick, buttonTitle, set
         <form className={s.form}>
             <TextField onChange={e => setTitle(e.currentTarget.value)}
                        value={title}
+                       label='New Title...'
             />
-            <div className={s.button}>
-                <Button onClick={() => {
-                    onEditClick({name: title, _id: pack_id})
-                    setVisible(false)
-                }}
-                        color='primary'
-                        variant='outlined'
-                        size='medium'
-                        className={s.button}
-                        disabled={title.length < 1}
-                >{buttonTitle}</Button>
-            </div>
+            <Button onClick={() => {
+                onEditClick({name: title, _id: pack_id})
+                setVisible(false)
+            }}
+                    color='primary'
+                    variant='contained'
+                    size='medium'
+                    className={s.button}
+                    disabled={title.length < 1}
+            >{buttonTitle}</Button>
         </form>
     )
 }
 
-export default EditItemForm;
+    export default EditItemForm;

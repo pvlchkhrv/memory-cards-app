@@ -17,21 +17,23 @@ export const theme = createTheme({
             root: {
                 display: 'flex',
                 justifyContent: 'center',
-                marginTop: 30,
+                margin: 20,
                 padding: 20,
                 overflowY: 'auto',
+                background: 'lightgrey'
             }
 
         },
         MuiButton: {
             root: {
-                textTransform: 'uppercase'
+                textTransform: 'uppercase',
+                width: '130px',
             }
         },
     },
     props: {
         MuiTextField: {
-            variant: 'outlined',
+            variant: 'standard',
             // InputLabelProps: {
             //     shrink: true
             // }

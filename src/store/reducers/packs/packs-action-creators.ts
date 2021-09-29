@@ -3,6 +3,7 @@ import {
     GetPacksQueryParams,
     PackPayload,
     PacksActions,
+    SetIsMine,
     SetPacks,
     SetPacksTotalCount,
     SetPage,
@@ -17,6 +18,7 @@ export const PacksActionCreators = {
     setPageCount: (payload: number): SetPageCount => ({type: PacksActions.SET_PAGE_COUNT, payload}),
     setPage: (payload: number): SetPage => ({type: PacksActions.SET_PAGE, payload}),
     setCardPacksTotalCount: (payload: number): SetPacksTotalCount => ({type: PacksActions.SET_PACKS_TOTAL_COUNT, payload}),
+    setIsMine: (payload: boolean): SetIsMine => ({type: PacksActions.SET_IS_MINE, payload}),
     fetchPacks: (payload: GetPacksQueryParams) => async (dispatch: AppDispatch) => {
         dispatch(AppActionCreators.setAppStatus('loading'));
         try {
