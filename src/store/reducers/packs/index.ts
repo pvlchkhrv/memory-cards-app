@@ -3,7 +3,7 @@ import {PacksAction, PacksActions, PacksState} from './types';
 const initState: PacksState = {
     packs: [],
     cardPacksTotalCount: 0,
-    maxCardsCount: 0,
+    maxCardsCount: 100,
     minCardsCount: 0,
     page: 1,
     pageCount: 10,

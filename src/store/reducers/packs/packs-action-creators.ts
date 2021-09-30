@@ -22,7 +22,7 @@ export const PacksActionCreators = {
         payload
     }),
     setIsMine: (payload: boolean): SetIsMine => ({type: PacksActions.SET_IS_MINE, payload}),
-    setCardsQuantity: (payload: { max: number, min: number }): SetCardsQuantity => ({
+    setCardsQuantity: (payload: { min: number, max: number }): SetCardsQuantity => ({
         type: PacksActions.SET_CARDS_QUANTITY,
         payload
     }),

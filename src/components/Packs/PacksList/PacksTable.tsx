@@ -47,14 +47,14 @@ export const PacksTable: FC<PackTablePropsType> = ({
             {!packs.length && <div className={s.noPacksMessage}>No packs has been found...</div>}
             <TableBody>
                 {packs.map((pack) => (
-                    <TableRow key={pack._id}>
+                    <TableRow key={pack._id} >
                         <TableCell component='th' scope='row'>
                             <NavLink to={RouteNames.PACKS + `/${pack._id}`}>{pack.name}</NavLink>
                         </TableCell>
                         <TableCell align='center'>{pack.cardsCount}</TableCell>
                         <TableCell align='center'>{formatDate(new Date(pack.updated))}</TableCell>
                         <TableCell align='center'>{formatDate(new Date(pack.created))}</TableCell>
-                        <TableCell align='center'>
+                        <TableCell align='center' className={s.actionCell}>
                             {
                                 userId === pack.user_id
                                     ? <div>

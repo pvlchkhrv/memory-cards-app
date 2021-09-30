@@ -5,22 +5,23 @@ import {useActions} from '../../../hooks/useActions';
 import {useAppSelector} from '../../../hooks/useAppSelector';
 
 const SliderBlock = () => {
-    const [value, setValue] = React.useState<number[]>([1, 10]);
     const {fetchPacks, setCardsQuantity} = useActions();
     const user = useAppSelector(state => state.auth.user);
     const status = useAppSelector(state => state.app.status);
-    const {isMine, maxCardsCount, minCardsCount, pageCount} = useAppSelector(state => state.packs);
+    const {maxCardsCount, minCardsCount} = useAppSelector(state => state.packs);
+    const [value, setValue] = React.useState<number[]>([minCardsCount, maxCardsCount]);
     const handleChange = (event: ChangeEvent<{}>, newValue: number | number[]) => {
         setValue(newValue as number[]);
-        setCardsQuantity({min: value[0], max: value[1]});
     }
-    const getPacks = () => {
-        if (isMine) {
-            fetchPacks({ min: minCardsCount, max: maxCardsCount, user_id: user._id, pageCount});
-        } else {
-            fetchPacks({min: minCardsCount, max: maxCardsCount, pageCount});
-        }
-    };
+    // const getPacks = () => {
+    //     debugger
+    //     setCardsQuantity({min: value[1], max: value[0]});
+    //     if (isMine) {
+    //         fetchPacks({user_id: user._id, min: minCardsCount, max: maxCardsCount, pageCount});
+    //     } else {
+    //         fetchPacks({min: minCardsCount, max: maxCardsCount, pageCount});
+    //     }
+    // };
 
     return (
         <div className={s.sliderBlock}>
@@ -33,7 +34,7 @@ const SliderBlock = () => {
                     valueLabelDisplay='auto'
                 />
                 <Button variant='contained'
-                        onClick={getPacks}
+                        onClick={() => setCardsQuantity({min: value[0], max: value[1]})}
                         disabled={status === 'loading'}
                 >Set</Button>
             </Box>

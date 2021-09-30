@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {useFormik} from 'formik';
 import {Button, Checkbox, FormControlLabel, FormGroup, FormLabel, Paper, TextField} from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -18,6 +18,7 @@ type FormikErrorType = {
 }
 
 const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
+    const errorDiv = useRef(null);
     const formik = useFormik({
         initialValues: {
             email: 'panich2303@gmail.com',
@@ -61,7 +62,7 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
                         {...formik.getFieldProps('email')}
                     />
                     {formik.touched.email &&
-                    formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                    formik.errors.email ? <div ref={errorDiv} style={{color: 'red'}}>{formik.errors.email}</div> : null}
                     <TextField
                         variant={'standard'}
                         type={visible ? 'text' : 'password'}
@@ -76,8 +77,8 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
                                            onClick={() => setVisible(!visible)}
                                            color={visible ? 'primary' : 'inherit'}
                                            style={formik.errors.password
-                                               ? ({top: '29%', left: '58%'})
-                                               : ({top: '30.5%', left: '58%'})
+                                               ? ({top: '40%'})
+                                               : ({top: '43%'})
                                            }
                         />
                     }

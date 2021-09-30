@@ -12,22 +12,22 @@ import {useAppSelector} from '../../../hooks/useAppSelector';
 import {useActions} from '../../../hooks/useActions';
 
 export const PacksList: FC = () => {
+    console.log('PACK LIST')
     const [newPackTitle, setNewPackTitle] = useState<string>('');
     const [filter, setFilter] = useState<string>('');
 
-    const {packs, cardPacksTotalCount, page, pageCount, maxCardsCount, minCardsCount} =
+    const {packs, cardPacksTotalCount, page, pageCount, maxCardsCount, minCardsCount, isMine} =
         useAppSelector(state => state.packs);
-    const queryParams = {page, pageCount, maxCardsCount, minCardsCount};
+    const queryParams = {page, pageCount,  min: minCardsCount, max: maxCardsCount, isMine, packName: filter};
     const status = useAppSelector(state => state.app.status);
     const user = useAppSelector(state => state.auth.user);
-    const isMine = useAppSelector(state => state.packs.isMine);
-    const {fetchPacks, setPage, setPageCount, addPack, removePack, updatePack, setIsMine} = useActions();
+    const {fetchPacks, setPage, setPageCount, addPack, removePack, updatePack, setCardsQuantity} = useActions();
 
-    const getPacks = (isMine: boolean, id?: string, filter?: string) => {
-        if (isMine && id) {
-            fetchPacks({...queryParams, user_id: id, packName: filter});
+    const getPacks = () => {
+        if (isMine && user._id) {
+            fetchPacks({user_id: user._id, ...queryParams});
         } else {
-            fetchPacks({...queryParams, packName: filter});
+            fetchPacks(queryParams);
         }
     };
     const handlePageChange = (e: React.ChangeEvent<unknown>, value: number) => setPage(value);
@@ -37,23 +37,23 @@ export const PacksList: FC = () => {
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setFilter(e.currentTarget.value);
     };
-    const handleOnSearchClick = () => getPacks(isMine, user._id, filter);
+    const handleOnSearchClick = () => getPacks();
     const handleCreatePack = async (title: string) => {
         await addPack({name: title});
-        getPacks(isMine, user._id, filter);
+        getPacks();
     };
     const handleDeletePack = async (id: string) => {
         await removePack(id);
-        getPacks(isMine, user._id, filter);
+        getPacks();
     };
     const handleEditPack = async (payload: PackPayload) => {
         await updatePack({name: payload.name, _id: payload._id})
-        getPacks(isMine, user._id, filter);
+        getPacks();
     };
 
     useEffect(() => {
-        getPacks(isMine, user._id, filter);
-    }, [page, isMine, pageCount]);
+        getPacks();
+    }, [page, isMine, pageCount, maxCardsCount, minCardsCount]);
 
     return (
         <Grid item xs={9} className={s.packList}>

@@ -20,7 +20,6 @@ export const theme = createTheme({
                 margin: 20,
                 padding: 20,
                 overflowY: 'auto',
-                background: 'lightgrey'
             }
 
         },
