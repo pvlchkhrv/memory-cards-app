@@ -34,9 +34,6 @@ export const theme = createTheme({
     props: {
         MuiTextField: {
             variant: 'standard',
-            // InputLabelProps: {
-            //     shrink: true
-            // }
         },
     }
 

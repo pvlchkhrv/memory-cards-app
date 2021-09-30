@@ -24,8 +24,8 @@ interface GetPacksQueryParams {
     packName?: string;
     min?: number;
     max?: number;
-    page: number;
-    pageCount: number;
+    page?: number;
+    pageCount?: number;
     user_id?: string;
     sortPacks?: string;
 }
@@ -48,7 +48,9 @@ export enum PacksActions {
     SET_PAGE = 'SET_PAGE',
     SET_PACKS_TOTAL_COUNT = 'SET_PACKS_TOTAL_COUNT',
     FILTER_PACKS = 'FILTER_PACKS',
-    SET_IS_MINE = 'SET_IS_MINE'
+    SET_IS_MINE = 'SET_IS_MINE',
+    SET_CARDS_QUANTITY = 'SET_CARDS_QUANTITY'
+
 }
 
 interface SetPacks {
@@ -76,6 +78,14 @@ interface SetIsMine {
     payload: boolean;
 }
 
+interface SetCardsQuantity {
+    type: PacksActions.SET_CARDS_QUANTITY;
+    payload: {
+        min: number;
+        max: number;
+    };
+}
+
 
 type PacksAction =
     | SetPacks
@@ -83,6 +93,7 @@ type PacksAction =
     | SetPage
     | SetPacksTotalCount
     | SetIsMine
+    | SetCardsQuantity
 
 export type {
     PacksState,
@@ -94,5 +105,6 @@ export type {
     SetPage,
     SetPacksTotalCount,
     PacksAction,
-    SetIsMine
+    SetIsMine,
+    SetCardsQuantity
 }

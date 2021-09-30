@@ -36,7 +36,7 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
             if (!values.password) {
                 errors.password = 'Required';
             } else if (values.password.length < 8) {
-                errors.password = 'Must be more than 7 characters'
+                errors.password = 'Should be more than 7 characters'
             }
 
             return errors;
@@ -45,63 +45,68 @@ const LoginForm: React.FC<LoginPropsType> = ({onSubmitHandler, status}) => {
             onSubmitHandler(values);
         },
     });
-    const [visible, setVisible]  = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(false);
 
     return (
-            <Paper elevation={3} className={s.paper}>
-                <form className={s.form} onSubmit={formik.handleSubmit}>
-                    <FormLabel>
-                        <h1 className={s.formLabel}>Log In</h1>
-                    </FormLabel>
-                    <FormGroup className={s.formGroup}>
-                        <TextField
-                            variant={'standard'}
-                            label='Email'
-                            margin="normal"
-                            {...formik.getFieldProps('email')}
+        <Paper elevation={3} className={s.paper}>
+            <form className={s.form} onSubmit={formik.handleSubmit}>
+                <FormLabel>
+                    <h1 className={s.formLabel}>Log In</h1>
+                </FormLabel>
+                <FormGroup className={s.formGroup}>
+                    <TextField
+                        variant={'standard'}
+                        label='Email'
+                        margin="normal"
+                        {...formik.getFieldProps('email')}
+                    />
+                    {formik.touched.email &&
+                    formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                    <TextField
+                        variant={'standard'}
+                        type={visible ? 'text' : 'password'}
+                        label='Password'
+                        margin='normal'
+                        className={s.passwordInput}
+                        {...formik.getFieldProps('password')}
+                    />
+                    {
+                        formik.values.password.length > 0
+                        && <VisibilityIcon className={s.icon}
+                                           onClick={() => setVisible(!visible)}
+                                           color={visible ? 'primary' : 'inherit'}
+                                           style={formik.errors.password
+                                               ? ({top: '29%', left: '58%'})
+                                               : ({top: '30.5%', left: '58%'})
+                                           }
                         />
-                        {formik.touched.email &&
-                        formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                        <TextField
-                            variant={'standard'}
-                            type={visible ? 'text' : 'password'}
-                            label='Password'
-                            margin='normal'
-                            className={s.passwordInput}
-                            {...formik.getFieldProps('password')}
-                        />
-                        {formik.touched.password &&
-                        formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
-                        {
-                            !formik.errors.password && !formik.errors.email && <VisibilityIcon className={s.icon}
-                                                                       onClick={() => setVisible(!visible)}
-                                                                       color={visible ? 'primary' : 'inherit'}
+                    }
+                    {formik.touched.password &&
+                    formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                    <FormControlLabel
+                        label={'Remember me'}
+                        control={
+                            <Checkbox
+                                {...formik.getFieldProps('rememberMe')}
+                                color='primary'
                             />
                         }
-                        <FormControlLabel
-                            label={'Remember me'}
-                            control={
-                                <Checkbox
-                                    {...formik.getFieldProps('rememberMe')}
-                                    color='primary'
-                                />
-                            }
-                        />
-                        <Button
-                            type={'submit'}
-                            variant={'contained'}
-                            color={'primary'}
-                            className={s.button}
-                            disabled={status === 'loading'}
-                        >
-                            Sign In</Button>
-                    </FormGroup>
-                    <div className={s.signUpBlock}>
-                        <span>Don't have an account? <Link to='/register'>Sign Up!</Link></span>
-                        <Link to='/restore'>Forgot Password?</Link>
-                    </div>
-                </form>
-            </Paper>
+                    />
+                </FormGroup>
+                <Button
+                    type={'submit'}
+                    variant={'contained'}
+                    color={'primary'}
+                    className={s.button}
+                    disabled={status === 'loading'}
+                >
+                    Sign In</Button>
+                <div className={s.signUpBlock}>
+                    <span>Don't have an account? <Link to='/register'>Sign Up!</Link></span>
+                    <Link to='/restore'>Forgot Password?</Link>
+                </div>
+            </form>
+        </Paper>
     );
 };
 

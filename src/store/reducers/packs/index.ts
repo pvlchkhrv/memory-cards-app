@@ -23,6 +23,8 @@ const packsReducer = (state = initState, action: PacksAction): PacksState => {
             return {...state, cardPacksTotalCount: action.payload};
         case PacksActions.SET_IS_MINE:
             return {...state, isMine: action.payload};
+        case PacksActions.SET_CARDS_QUANTITY:
+            return {...state, maxCardsCount: action.payload.max, minCardsCount: action.payload.min};
         default:
             return state;
     }
