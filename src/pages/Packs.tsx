@@ -4,15 +4,15 @@ import {AsideBar} from '../components/Packs/AsideBar/AsideBar';
 import {PacksList} from '../components/Packs/PacksList/PacksList';
 
 const Packs = () => {
-    console.log("PACKS")
+    console.log("PACKS");
     return (
-        <Grid container>
-            <Paper className='packs'>
-                <AsideBar />
-                <PacksList/>
-            </Paper>
-        </Grid>
-    )
+        <Paper className='packs'>
+            <Grid container>
+                <AsideBar/>
+                <PacksList />
+            </Grid>
+        </Paper>
+    );
 }
 
 export default Packs;

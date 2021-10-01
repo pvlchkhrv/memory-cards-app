@@ -16,7 +16,7 @@ import {ICard} from '../../../models/ICard';
 export const CardsActionCreators = {
     setCards: (payload: ICard[]): SetCards => ({type: CardsActions.SET_CARDS, payload}),
     setCardsPageCount: (payload: number): SetCardsPageCount => ({type: CardsActions.SET_CARDS_PAGE_COUNT, payload}),
-    setPage: (payload: number): SetCardsPage => ({type: CardsActions.SET_CARDS_PAGE, payload}),
+    setCardPage: (payload: number): SetCardsPage => ({type: CardsActions.SET_CARDS_PAGE, payload}),
     setCardsTotalCount: (payload: number): SetCardsTotalCount => ({type: CardsActions.SET_CARDS_TOTAL_COUNT, payload}),
     fetchCards: (payload: GetCardsQueryParams) => async (dispatch: AppDispatch) => {
         dispatch(AppActionCreators.setAppStatus('loading'));

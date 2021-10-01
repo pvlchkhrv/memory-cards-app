@@ -28,7 +28,7 @@ const SliderBlock = () => {
             <h5>Number Of Cards</h5>
             <Box sx={{width: 200}}>
                 <Slider
-                    getAriaLabel={() => 'Cards quantity range'}
+                    getAriaLabel={() => 'CardsList quantity range'}
                     value={value}
                     onChange={handleChange}
                     valueLabelDisplay='auto'

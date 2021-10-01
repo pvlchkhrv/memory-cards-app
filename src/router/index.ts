@@ -5,7 +5,7 @@ import Error404 from '../pages/Error404';
 import SetPassword from '../pages/SetPassword';
 import Profile from '../components/Profile/ProfileInfo';
 import Packs from '../pages/Packs';
-import Cards from '../components/Cards/Cards';
+import CardsList from '../components/CardsList/CardsList';
 import {ComponentType} from 'react';
 import Learn from '../pages/Learn';
 
@@ -30,7 +30,7 @@ export enum RouteNames {
 const privateRoutes: IRoute[] = [
     {path: RouteNames.PACKS, exact: true, component: Packs},
     {path: RouteNames.PROFILE, component: Profile, exact: true},
-    {path: RouteNames.CARDS, component: Cards, exact: true},
+    {path: RouteNames.CARDS, component: CardsList, exact: true},
     {path: RouteNames.LEARN, component: Learn, exact: true},
 ];
 

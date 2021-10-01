@@ -3,7 +3,6 @@
     background-color: #FEFEFF;
     display: flex;
     flex-direction: column;
-    min-height: 600px;
 }
 
 .searchBar {

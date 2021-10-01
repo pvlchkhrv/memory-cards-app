@@ -39,11 +39,11 @@ beforeEach(() => {
 });
 
 describe('check if cardsReducer implements correctly', () => {
-    it('Cards array should be set', () => {
+    it('CardsList array should be set', () => {
         const cards = generateCards();
         const output = cardsReducer(startState, CardsActionCreators.setCards(cards));
         expect(output.cards[0]._id).toBe('0');
-        expect(output.cards[1].answer).toBe('Cards answer # 1');
+        expect(output.cards[1].answer).toBe('CardsList answer # 1');
         expect(output.cards[1]).toHaveProperty('user_id');
     })
     it('page should be changed', () => {

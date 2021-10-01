@@ -1,11 +1,8 @@
 import React, {ChangeEvent, FC, useEffect, useState} from 'react'
 import {Grid} from '@material-ui/core'
 import s from './PacksList.module.css'
-import {RequestStatusType} from '../../../store/reducers/app/types'
 import PaginationBar from '../../Pagination/PaginationBar'
-import {IPack} from '../../../models/IPack';
-import {IUser} from '../../../models/IUser';
-import {GetPacksQueryParams, PackPayload} from '../../../store/reducers/packs/types';
+import {PackPayload} from '../../../store/reducers/packs/types';
 import {PacksTable} from './PacksTable';
 import SearchBar from '../../Search/SearchBar';
 import {useAppSelector} from '../../../hooks/useAppSelector';
@@ -21,7 +18,7 @@ export const PacksList: FC = () => {
     const queryParams = {page, pageCount,  min: minCardsCount, max: maxCardsCount, isMine, packName: filter};
     const status = useAppSelector(state => state.app.status);
     const user = useAppSelector(state => state.auth.user);
-    const {fetchPacks, setPage, setPageCount, addPack, removePack, updatePack, setCardsQuantity} = useActions();
+    const {fetchPacks, setPage, setPageCount, addPack, removePack, updatePack} = useActions();
 
     const getPacks = () => {
         if (isMine && user._id) {
@@ -33,9 +30,6 @@ export const PacksList: FC = () => {
     const handlePageChange = (e: React.ChangeEvent<unknown>, value: number) => setPage(value);
     const handlePageCountChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setPageCount(+e.currentTarget.value);
-    }
-    const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-        setFilter(e.currentTarget.value);
     };
     const handleOnSearchClick = () => getPacks();
     const handleCreatePack = async (title: string) => {
@@ -59,10 +53,11 @@ export const PacksList: FC = () => {
         <Grid item xs={9} className={s.packList}>
             <h3>Packs List ({cardPacksTotalCount})</h3>
             <SearchBar
+                type='packs'
+                onSearch={handleOnSearchClick}
+                onCreate={handleCreatePack}
                 filter={filter}
-                onSearchClick={handleOnSearchClick}
-                handleSearch={handleSearch}
-                handleCreatePack={handleCreatePack}
+                setFilter={setFilter}
             />
             <PacksTable packs={packs}
                         userId={user?._id}
@@ -72,7 +67,7 @@ export const PacksList: FC = () => {
             {
                 packs.length > 0 && <PaginationBar page={queryParams.page}
                                                pageCount={queryParams.pageCount}
-                                               packsTotal={cardPacksTotalCount}
+                                               total={cardPacksTotalCount}
                                                handlePageChange={handlePageChange}
                                                handlePageCountChange={handlePageCountChange}
                                                status={status}

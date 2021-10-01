@@ -6,44 +6,73 @@ import AddNewItemForm from '../forms/add-new-item-form/AddNewItemForm';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {Search} from '@material-ui/icons';
 
+// type SearchProps = {
+//     filter: string;
+//     onSearchClick: () => void;
+//     handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+//     handleCreatePack: (title: string) => void;
+// }
+
 type SearchProps = {
+    type: 'cards' | 'packs';
     filter: string;
-    onSearchClick: () => void;
-    handleSearch: (e: ChangeEvent<HTMLInputElement>) => void;
-    handleCreatePack: (title: string) => void;
+    setFilter: (filter: string) => void;
+    onSearch: () => void;
+    onCreate: (title: string) => void;
 }
 
+
 export const SearchBar: FC<SearchProps> = ({
+                                               // filter,
+                                               // onSearchClick,
+                                               // handleSearch,
+                                               // handleCreatePack
+                                               type,
+                                               onSearch,
+                                               onCreate,
                                                filter,
-                                               onSearchClick,
-                                               handleSearch,
-                                               handleCreatePack
+                                               setFilter
                                            }) => {
     const [visible, setVisible] = useState<boolean>(false);
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setFilter(e.currentTarget.value);
+    };
+
+    const onClick = () => {
+        onSearch();
+        setFilter('');
+    }
+
     const status = useAppSelector(state => state.app.status);
     return (
         <div className={s.searchBar}>
             <div>
                 <TextField id='standard-search'
-                           label='Pack title...'
+                           label={type === 'packs'
+                               ? 'Pack title...'
+                               : 'Question or Answer ...'
+                           }
                            type='search'
                            size='small'
                            value={filter}
-                           onChange={handleSearch}
+                           onChange={onChange}
                 />
-                <Button onClick={onSearchClick}
+                <Button onClick={onClick}
                         color='primary'
                 ><Search/></Button>
             </div>
             <Button color='primary'
                     onClick={() => setVisible(true)}
                     disabled={status === 'loading'}
-            >Add Pack</Button>
+            >{type === 'packs' ? 'Create Pack' : 'Create Card'}</Button>
             <Modal visible={visible}
                    setVisible={setVisible}
             >
-                <AddNewItemForm buttonTitle='Create pack'
-                                onClick={handleCreatePack}
+                <AddNewItemForm buttonTitle={type === 'packs'
+                ? 'Add pack'
+                : 'Add card'}
+                                onClick={onCreate}
                                 setVisible={setVisible}
                 />
             </Modal>

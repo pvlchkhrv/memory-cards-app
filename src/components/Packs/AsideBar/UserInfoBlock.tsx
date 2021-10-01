@@ -7,15 +7,15 @@ import {NavLink} from 'react-router-dom';
 
 const UserInfoBlock = () => {
     console.log('USER INFO BLOCK');
-    const user = useAppSelector(state => state.auth.user)
+    const user = useAppSelector(state => state.auth.user);
     const SmallAvatar = styled(Avatar)(({ theme }) => ({
         width: 22,
         height: 22,
         border: `2px solid ${theme.palette.background.paper}`,
     }));
     const BigAvatar = styled(Avatar)(({theme}) => ({
-        width: 150,
-        height: 150
+        width: 200,
+        height: 200
     }))
 
     return (

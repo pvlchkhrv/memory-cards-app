@@ -7,7 +7,7 @@ import {RequestStatusType} from '../../store/reducers/app/types';
 type PaginationBarPropsType = {
     page?: number
     pageCount: number
-    packsTotal: number
+    total: number
     handlePageChange: (e: React.ChangeEvent<unknown>, value: number) => void
     handlePageCountChange: (e: ChangeEvent<HTMLSelectElement>) => void
     status: RequestStatusType
@@ -16,7 +16,7 @@ type PaginationBarPropsType = {
 const PaginationBar: React.FC<PaginationBarPropsType> = ({
                                                              page,
                                                              pageCount,
-                                                             packsTotal,
+                                                             total,
                                                              handlePageChange,
                                                              handlePageCountChange,
                                                              status
@@ -26,7 +26,7 @@ const PaginationBar: React.FC<PaginationBarPropsType> = ({
         {value: '15', name: '15'},
         {value: '20', name: '20'},
     ]
-    const totalPages = Math.ceil(packsTotal / pageCount)
+    const totalPages = Math.ceil(total / pageCount)
     return (
         <div className={s.paginationBar}>
             <Pagination count={totalPages}

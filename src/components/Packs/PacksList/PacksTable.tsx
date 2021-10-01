@@ -1,4 +1,4 @@
-import {Button, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core'
+import {Button, ButtonGroup, Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core'
 import {NavLink} from 'react-router-dom'
 import s from './PacksTable.module.css'
 import {useHistory} from 'react-router';
@@ -33,7 +33,7 @@ export const PacksTable: FC<PackTablePropsType> = ({
     const [modal, setModal] = useState<boolean>(false);
     const history = useHistory();
     return (
-        <Table >
+        <Table>
             <TableHead className={s.tableHead}>
                 <TableRow>
                     {columnTitles.map(t => {
@@ -47,36 +47,38 @@ export const PacksTable: FC<PackTablePropsType> = ({
             {!packs.length && <div className={s.noPacksMessage}>No packs has been found...</div>}
             <TableBody>
                 {packs.map((pack) => (
-                    <TableRow key={pack._id} >
+                    <TableRow key={pack._id}>
                         <TableCell component='th' scope='row'>
-                            <NavLink to={RouteNames.PACKS + `/${pack._id}`}>{pack.name}</NavLink>
+                            <NavLink to={RouteNames.PACKS + `/${pack._id}`}
+                            >{pack.name}</NavLink>
                         </TableCell>
                         <TableCell align='center'>{pack.cardsCount}</TableCell>
                         <TableCell align='center'>{formatDate(new Date(pack.updated))}</TableCell>
                         <TableCell align='center'>{formatDate(new Date(pack.created))}</TableCell>
-                        <TableCell align='center' className={s.actionCell}>
-                            {
-                                userId === pack.user_id
-                                    ? <div>
-                                        <Button onClick={() => setModal(true)}>Edit</Button>
-                                        <Button onClick={()=> history.push('/learn/' + pack._id)}
-                                        >Learn</Button>
-                                        <Modal visible={modal} setVisible={setModal}>
-                                            <EditItemForm onEditClick={onEditClick}
-                                                          buttonTitle='Update pack'
-                                                          setVisible={setModal}
-                                                          pack_id={pack._id}
-                                                          name={pack.name}
-                                            />
-                                        </Modal>
-                                        <Button onClick={() => onDeleteClick(pack._id)}
-                                                color='secondary'
-                                        >Delete</Button>
+                        {
+                            userId === pack.user_id
+                                ? <TableCell align='center' className={s.actionCell}>
+                                    <Button onClick={() => setModal(true)}>Edit</Button>
+                                    <Button onClick={() => history.push('/learn/' + pack._id)}
+                                    >Learn</Button>
+                                    <Modal visible={modal} setVisible={setModal}>
+                                        <EditItemForm onEditClick={onEditClick}
+                                                      buttonTitle='Update pack'
+                                                      setVisible={setModal}
+                                                      pack_id={pack._id}
+                                                      name={pack.name}
+                                        />
+                                    </Modal>
+                                    <Button onClick={() => onDeleteClick(pack._id)}
+                                            color='secondary'
+                                    >Delete</Button>
+                                </TableCell>
+                                :
+                                <TableCell align='center' className={s.actionCell}>
+                                    <Button onClick={() => history.push('/learn/' + pack._id)}>Learn</Button>
+                                </TableCell>
 
-                                    </div>
-                                    : <Button onClick={() => history.push('/learn/' + pack._id)}>Learn</Button>
-                            }
-                        </TableCell>
+                        }
                     </TableRow>
                 ))}
             </TableBody>
