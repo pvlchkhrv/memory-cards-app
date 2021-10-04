@@ -22,6 +22,7 @@ const IsMineBlock = () => {
                     >All Packs</Button>
                     : <Button
                               variant='contained'
+                              color='primary'
                               disabled={status === 'loading'}
                               onClick={() => setIsMine(true)}
                     >My Packs</Button>

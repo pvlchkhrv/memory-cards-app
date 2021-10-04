@@ -26,6 +26,7 @@ const ProfileInfo = () => {
             >
                 <BigAvatar alt="profile avatar" src={user.avatar}/>
             </Badge>
+
         </Paper>
     );
 };
