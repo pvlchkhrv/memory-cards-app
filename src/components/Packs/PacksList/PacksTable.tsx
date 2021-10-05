@@ -69,7 +69,7 @@ export const PacksTable: FC<PackTablePropsType> = ({
                                                       name={pack.name}
                                         />
                                     </Modal>
-                                    <Button onClick={() => onDeleteClick(pack._id)}
+                                    <Button  onClick={() => onDeleteClick(pack._id)}
                                             color='secondary'
                                     >Delete</Button>
                                 </TableCell>

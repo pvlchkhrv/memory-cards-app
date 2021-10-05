@@ -72,4 +72,16 @@ export const AuthActionCreators = {
             dispatch(AppActionCreators.setAppStatus('failed'));
         }
     },
+    updateProfile: (name?: string, avatar?: string) => async (dispatch: AppDispatch) => {
+        dispatch(AppActionCreators.setAppStatus('loading'));
+        try {
+            const response = await authAPI.updateProfile({name, avatar});
+            dispatch(AuthActionCreators.setUser(response.data.updatedUser));
+            dispatch(AppActionCreators.setAppStatus('succeed'));
+        } catch (e) {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in console');
+            dispatch(AppActionCreators.setAppError(error));
+            dispatch(AppActionCreators.setAppStatus('failed'));
+        }
+    }
 };

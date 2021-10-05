@@ -7,17 +7,18 @@ import {PacksTable} from './PacksTable';
 import SearchBar from '../../Search/SearchBar';
 import {useAppSelector} from '../../../hooks/useAppSelector';
 import {useActions} from '../../../hooks/useActions';
+import {Redirect} from 'react-router';
+import {RouteNames} from '../../../router';
 
 export const PacksList: FC = () => {
     console.log('PACK LIST')
-    const [newPackTitle, setNewPackTitle] = useState<string>('');
     const [filter, setFilter] = useState<string>('');
 
     const {packs, cardPacksTotalCount, page, pageCount, maxCardsCount, minCardsCount, isMine} =
         useAppSelector(state => state.packs);
     const queryParams = {page, pageCount,  min: minCardsCount, max: maxCardsCount, isMine, packName: filter};
     const status = useAppSelector(state => state.app.status);
-    const user = useAppSelector(state => state.auth.user);
+    const {user,isAuth} = useAppSelector(state => state.auth);
     const {fetchPacks, setPage, setPageCount, addPack, removePack, updatePack} = useActions();
 
     const getPacks = () => {
@@ -31,7 +32,7 @@ export const PacksList: FC = () => {
     const handlePageCountChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setPageCount(+e.currentTarget.value);
     };
-    const handleOnSearchClick = () => getPacks();
+    const handleOnSearch = () => getPacks();
     const handleCreatePack = async (title: string) => {
         await addPack({name: title});
         getPacks();
@@ -54,7 +55,7 @@ export const PacksList: FC = () => {
             <h3>Packs List ({cardPacksTotalCount})</h3>
             <SearchBar
                 type='packs'
-                onSearch={handleOnSearchClick}
+                onSearch={handleOnSearch}
                 onCreate={handleCreatePack}
                 filter={filter}
                 setFilter={setFilter}

@@ -5,6 +5,7 @@ import Modal from '../modals/Modal';
 import AddNewItemForm from '../forms/add-new-item-form/AddNewItemForm';
 import {useAppSelector} from '../../hooks/useAppSelector';
 import {Search} from '@material-ui/icons';
+import {useDebounce} from '../../hooks/useDebounce';
 
 // type SearchProps = {
 //     filter: string;
@@ -23,10 +24,6 @@ type SearchProps = {
 
 
 export const SearchBar: FC<SearchProps> = ({
-                                               // filter,
-                                               // onSearchClick,
-                                               // handleSearch,
-                                               // handleCreatePack
                                                type,
                                                onSearch,
                                                onCreate,
@@ -34,15 +31,12 @@ export const SearchBar: FC<SearchProps> = ({
                                                setFilter
                                            }) => {
     const [visible, setVisible] = useState<boolean>(false);
+    const handleDebouncedSearch = useDebounce(onSearch, 1000);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setFilter(e.currentTarget.value);
+        handleDebouncedSearch();
     };
-
-    const onClick = () => {
-        onSearch();
-        setFilter('');
-    }
 
     const status = useAppSelector(state => state.app.status);
     return (
@@ -58,9 +52,6 @@ export const SearchBar: FC<SearchProps> = ({
                            value={filter}
                            onChange={onChange}
                 />
-                <Button onClick={onClick}
-                        color='primary'
-                ><Search/></Button>
             </div>
             <Button color='primary'
                     onClick={() => setVisible(true)}
@@ -70,8 +61,8 @@ export const SearchBar: FC<SearchProps> = ({
                    setVisible={setVisible}
             >
                 <AddNewItemForm buttonTitle={type === 'packs'
-                ? 'Add pack'
-                : 'Add card'}
+                    ? 'Add pack'
+                    : 'Add card'}
                                 onClick={onCreate}
                                 setVisible={setVisible}
                 />

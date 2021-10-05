@@ -32,7 +32,7 @@ export const theme = createTheme({
     },
     props: {
         MuiTextField: {
-            variant: 'standard',
+            variant: 'outlined',
         },
     }
 

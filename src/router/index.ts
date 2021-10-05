@@ -12,7 +12,7 @@ import Learn from '../pages/Learn';
 interface IRoute {
     path: string;
     component: ComponentType;
-    exact: boolean;
+    exact?: boolean;
 }
 
 export enum RouteNames {
@@ -29,17 +29,17 @@ export enum RouteNames {
 
 const privateRoutes: IRoute[] = [
     {path: RouteNames.PACKS, exact: true, component: Packs},
-    {path: RouteNames.PROFILE, component: Profile, exact: true},
-    {path: RouteNames.CARDS, component: CardsList, exact: true},
-    {path: RouteNames.LEARN, component: Learn, exact: true},
+    {path: RouteNames.PROFILE, exact: true, component: Profile},
+    {path: RouteNames.CARDS, exact: true, component: CardsList},
+    {path: RouteNames.LEARN, exact: true, component: Learn},
 ];
 
 const publicRoutes: IRoute[] = [
-    {path: RouteNames.LOGIN, component: Login, exact: true},
-    {path: RouteNames.REGISTER, component: Register, exact: true},
-    {path: RouteNames.RESTORE, component: RestorePassword, exact: true},
-    {path: RouteNames.SET_PASSWORD, component: SetPassword, exact: true},
-    {path: RouteNames.ERROR, component: Error404, exact: false},
+    {path: RouteNames.LOGIN, exact: true, component: Login},
+    {path: RouteNames.REGISTER, exact: true, component: Register},
+    {path: RouteNames.RESTORE, exact: true, component: RestorePassword},
+    {path: RouteNames.SET_PASSWORD, exact: true, component: SetPassword},
+    {path: RouteNames.ERROR, exact: false, component: Error404},
 ];
 
 export {

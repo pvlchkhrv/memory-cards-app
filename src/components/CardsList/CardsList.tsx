@@ -13,7 +13,6 @@ const CardsList = () => {
     const {cardsTotalCount, cards, page, pageCount} = useAppSelector(state => state.cards);
     const packs = useAppSelector(state => state.packs.packs);
     const status = useAppSelector(state => state.app.status);
-    const isAuth = useAppSelector(state => state.auth);
     const {fetchCards, addCard, setCardPage, setCardsPageCount} = useActions();
     const {id} = useParams<{ id: string }>();
 
@@ -24,7 +23,7 @@ const CardsList = () => {
         }
     })
 
-    const handleOnSearchClick = () => {
+    const handleOnSearch = () => {
         fetchCards({cardsPack_id: id, cardQuestion: filter, cardAnswer: filter});
     };
     const handleCreateCard = async (title: string) => {
@@ -45,7 +44,7 @@ const CardsList = () => {
             <h3>
                 {`${packName} (${cardsTotalCount})`}
             </h3>
-            <SearchBar onSearch={handleOnSearchClick}
+            <SearchBar onSearch={handleOnSearch}
                        type='cards'
                        onCreate={handleCreateCard}
                        filter={filter}

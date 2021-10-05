@@ -4,13 +4,13 @@ import {privateRoutes, publicRoutes, RouteNames} from '../router';
 import {useAppSelector} from '../hooks/useAppSelector';
 
 const AppRouter = () => {
-    const {isAuth} = useAppSelector(state => state.auth)
+    const {isAuth} = useAppSelector(state => state.auth);
     return (
         !isAuth ?
             <Switch>
                 {publicRoutes.map(r =>
-                    <Route component={r.component}
-                           path={r.path}
+                    <Route path={r.path}
+                           component={r.component}
                            exact={r.exact}
                            key={r.path}
                     />
@@ -20,8 +20,8 @@ const AppRouter = () => {
             :
             <Switch>
                 {privateRoutes.map(r =>
-                    <Route component={r.component}
-                           path={r.path}
+                    <Route path={r.path}
+                           component={r.component}
                            exact={r.exact}
                            key={r.path}
                     />

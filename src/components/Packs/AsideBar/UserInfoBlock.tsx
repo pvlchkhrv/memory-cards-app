@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './AsideBar.module.css';
-import {Avatar, Badge, Button, styled} from '@material-ui/core';
+import {Avatar, Button, styled} from '@material-ui/core';
 import {useAppSelector} from '../../../hooks/useAppSelector';
 import {RouteNames} from '../../../router';
 import {NavLink} from 'react-router-dom';
@@ -15,7 +15,7 @@ const UserInfoBlock = () => {
 
     return (
         <div className={s.userInfoBlock}>
-            <BigAvatar alt="profile avatar" src={user.avatar}/>
+            <BigAvatar alt="profile avatar" src={'user.avatar'}/>
             <div>
                 {user.name}
             </div>

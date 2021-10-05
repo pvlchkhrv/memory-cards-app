@@ -10,7 +10,7 @@ import {theme} from './styles/theme';
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <MuiThemeProvider theme={theme}>
                 <App />
             </MuiThemeProvider>
