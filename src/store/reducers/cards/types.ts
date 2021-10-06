@@ -26,7 +26,7 @@ interface CardPayload {
     cardsPack_id: string;
     question?: string;
     answer?: string;
-    grade?: number;
+    grade?: number | null;
     shots?: number;
     rating?: number;
     answerImg?: string;

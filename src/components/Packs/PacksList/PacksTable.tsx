@@ -33,55 +33,57 @@ export const PacksTable: FC<PackTablePropsType> = ({
     const [modal, setModal] = useState<boolean>(false);
     const history = useHistory();
     return (
-        <Table>
-            <TableHead className={s.tableHead}>
-                <TableRow>
-                    {columnTitles.map(t => {
-                        if (t.title === 'Pack name') {
-                            return <TableCell key={t.id}>{t.title}</TableCell>
-                        }
-                        return <TableCell key={t.id} align='center'>{t.title}</TableCell>
-                    })}
-                </TableRow>
-            </TableHead>
-            {!packs.length && <div className={s.noPacksMessage}>No packs has been found...</div>}
-            <TableBody>
-                {packs.map((pack) => (
-                    <TableRow key={pack._id}>
-                        <TableCell component='th' scope='row'>
-                            <NavLink to={RouteNames.PACKS + `/${pack._id}`}
-                            >{pack.name}</NavLink>
-                        </TableCell>
-                        <TableCell align='center'>{pack.cardsCount}</TableCell>
-                        <TableCell align='center'>{formatDate(new Date(pack.updated))}</TableCell>
-                        <TableCell align='center'>{formatDate(new Date(pack.created))}</TableCell>
-                        {
-                            userId === pack.user_id
-                                ? <TableCell align='center' className={s.actionCell}>
-                                    <Button onClick={() => setModal(true)}>Edit</Button>
-                                    <Button onClick={() => history.push('/learn/' + pack._id)}
-                                    >Learn</Button>
-                                    <Modal visible={modal} setVisible={setModal}>
-                                        <EditItemForm onEditClick={onEditClick}
-                                                      buttonTitle='Update pack'
-                                                      setVisible={setModal}
-                                                      pack_id={pack._id}
-                                                      name={pack.name}
-                                        />
-                                    </Modal>
-                                    <Button  onClick={() => onDeleteClick(pack._id)}
-                                            color='secondary'
-                                    >Delete</Button>
-                                </TableCell>
-                                :
-                                <TableCell align='center' className={s.actionCell}>
-                                    <Button onClick={() => history.push('/learn/' + pack._id)}>Learn</Button>
-                                </TableCell>
-
-                        }
+        !packs.length ?
+            <div className={s.noPacksMessage}>No packs has been found...</div>
+            :
+            <Table>
+                <TableHead className={s.tableHead}>
+                    <TableRow>
+                        {columnTitles.map(t => {
+                            if (t.title === 'Pack name') {
+                                return <TableCell key={t.id}>{t.title}</TableCell>
+                            }
+                            return <TableCell key={t.id} align='center'>{t.title}</TableCell>
+                        })}
                     </TableRow>
-                ))}
-            </TableBody>
-        </Table>
+                </TableHead>
+                <TableBody>
+                    {packs.map((pack) => (
+                        <TableRow key={pack._id}>
+                            <TableCell component='th' scope='row'>
+                                <NavLink to={RouteNames.PACKS + `/${pack._id}`}
+                                >{pack.name}</NavLink>
+                            </TableCell>
+                            <TableCell align='center'>{pack.cardsCount}</TableCell>
+                            <TableCell align='center'>{formatDate(new Date(pack.updated))}</TableCell>
+                            <TableCell align='center'>{formatDate(new Date(pack.created))}</TableCell>
+                            {
+                                userId === pack.user_id
+                                    ? <TableCell align='center' className={s.actionCell}>
+                                        <Button onClick={() => setModal(true)}>Edit</Button>
+                                        <Button onClick={() => history.push('/learn/' + pack._id)}
+                                        >Learn</Button>
+                                        <Modal visible={modal} setVisible={setModal}>
+                                            <EditItemForm onEditClick={onEditClick}
+                                                          buttonTitle='Update pack'
+                                                          setVisible={setModal}
+                                                          pack_id={pack._id}
+                                                          name={pack.name}
+                                            />
+                                        </Modal>
+                                        <Button onClick={() => onDeleteClick(pack._id)}
+                                                color='secondary'
+                                        >Delete</Button>
+                                    </TableCell>
+                                    :
+                                    <TableCell align='center' className={s.actionCell}>
+                                        <Button onClick={() => history.push('/learn/' + pack._id)}>Learn</Button>
+                                    </TableCell>
+
+                            }
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
     )
 }

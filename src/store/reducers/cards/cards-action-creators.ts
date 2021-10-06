@@ -65,4 +65,15 @@ export const CardsActionCreators = {
             dispatch(AppActionCreators.setAppStatus('failed'));
         }
     },
+    estimateCard: (card_id: string, grade: number | null) => async (dispatch: AppDispatch) => {
+        dispatch(AppActionCreators.setAppStatus('loading'));
+        try {
+            await cardsAPI.estimateCard({card_id, grade});
+            dispatch(AppActionCreators.setAppStatus('succeed'));
+        } catch (e) {
+            const error = e.response ? e.response.data.error : (e.message + ', more details in console');
+            dispatch(AppActionCreators.setAppError(error));
+            dispatch(AppActionCreators.setAppStatus('failed'));
+        }
+    }
 }

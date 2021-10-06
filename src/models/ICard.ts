@@ -1,7 +1,6 @@
 export interface ICard {
     _id: string;
     cardsPack_id: string;
-
     answer: string;
     question: string;
     grade: number;
@@ -13,7 +12,6 @@ export interface ICard {
     type: string;
     rating: number;
     more_id: string;
-
     created: string;
     updated: string;
 }

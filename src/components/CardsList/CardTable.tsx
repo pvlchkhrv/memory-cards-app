@@ -12,6 +12,7 @@ type CardTablePropsType = {
 }
 
 const CardTable: FC<CardTablePropsType> = ({cards}) => {
+    console.log("CARDS TABLE")
     const columnTitles = [
         {id: 1, title: 'Question'},
         {id: 2, title: 'Answer'},
@@ -35,7 +36,7 @@ const CardTable: FC<CardTablePropsType> = ({cards}) => {
                             <TableCell align='center' width={300}>{card.answer}</TableCell>
                             <TableCell align='center' >{formatDate (new Date(card.updated))}</TableCell>
                             <TableCell align='center' width={100}>
-                                <CardRating grade={card.grade}/>
+                                <CardRating card={card}/>
                             </TableCell>
                             <TableCell align='center' width={150}>
                                     <Button onClick={() => {}}>Edit</Button>

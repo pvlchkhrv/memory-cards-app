@@ -17,8 +17,8 @@ const cardsAPI = {
     updateCard(payload: CardPayload) {
         return instance.put(CARDS_URL, {card: payload});
     },
-    estimateCard(payload: {card_id: string, grade: number}) {
-        return instance.put('cards/grade/', payload)
+    estimateCard(payload: {grade: number | null, card_id: string}) {
+        return instance.put('cards/grade', payload)
     }
 };
 

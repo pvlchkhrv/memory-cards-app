@@ -4,6 +4,10 @@
 .noPacksMessage {
     margin-top: 10px;
 }
+
+.noPacksMessageNone {
+    display: none;
+}
 .actionCell button{
     width: 70px;
 }
